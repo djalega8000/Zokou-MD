@@ -1,7 +1,8 @@
 const mumaker = require('mumaker');
 module.exports.commande = () => {
-    var nomCom = ["dragonball"];
-    return { nomCom, execute };
+    var nomCom = ["dragonball","dragon"];
+    var reaction="🐉"
+    return { nomCom, execute,reaction };
 };
 async function execute(dest, zok, argument, msg) {
     const noArgMsg = " *voici comment faire : dragonball Djalega++* ";
