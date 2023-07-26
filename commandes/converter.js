@@ -23,7 +23,7 @@ zokou({ nomCom: "sticker",
     
 })
   const stikk = await sticker.toBuffer();
-   await zok.sendMessage(dest, stikk, { quoted: infoMessage })
+   await zk.sendMessage(dest, stikk, { quoted: infoMessage })
 }
 
 }
