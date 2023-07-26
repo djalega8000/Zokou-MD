@@ -2,7 +2,7 @@ const { zokou } = require("../framework/zokou");
 const { Sticker, createSticker, StickerTypes } = require("wa-sticker-formatter");
 
 
-////////////////////////////////////////      /sticker//       ////////////////////////////////////////////
+////////////////////////////////////////            /sticker/           ////////////////////////////////////////////
 zokou({ nomCom: "sticker",
     categorie: "converter", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
     const { prefixe, arg, ms, repondre } = commandeOptions;
