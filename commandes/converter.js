@@ -26,4 +26,3 @@ zokou({ nomCom: "sticker",
    await zk.sendMessage(dest, stikk, { quoted: infoMessage })
 }
 
-}
