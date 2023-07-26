@@ -6,7 +6,7 @@ const { Sticker, createSticker, StickerTypes } = require("wa-sticker-formatter")
 zokou({ nomCom: "sticker",
     categorie: "converter", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
     const { prefixe, arg, ms, repondre } = commandeOptions;
-   if (!msg.quoted) return repondre("Veillez mentionner une image ou une video s'il vous plait")
+   if (!ms.quoted) return repondre("Veillez mentionner une image ou une video s'il vous plait")
   let image = await ms.quoted.download();
                 repondre("*En cours de traitement*");
 
