@@ -25,7 +25,7 @@ zokou({ nomCom: "sticker",
   const buffer = await sticker.toBuffer()
    return Void.sendMessage(citel.chat, {sticker: buffer}, {quoted: citel });
     const stikk = await sticker.toBuffer();
-   await zok.sendMessage(dest,Stikk, { quoted: infoMessage })
+   await zok.sendMessage(dest, stikk, { quoted: infoMessage })
 }
 
 }
