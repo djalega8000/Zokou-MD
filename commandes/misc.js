@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 module.exports.commande = () => {
-    var nomCom = ["test", "t"];
+    var nomCom = ["alive"];
     return { nomCom, execute };
 };
 async function execute(origineMessage, zok) {
