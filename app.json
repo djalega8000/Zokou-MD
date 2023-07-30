@@ -3,6 +3,7 @@
   "description":"bot whatsapp ",
   "keywords":["bot","node"],
   "logo":"https://wallpapercave.com/uwp/uwp3860299.jpeg",
+  "repository":"https://github.com/djalega8000/Zokou-MD",
   "succes_url":"/",
   "stack":"container"
   "env":{
