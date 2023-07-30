@@ -7,10 +7,12 @@ RUN apt-get update && \
   webp && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/djalega8000/Zokou-MD /root/Zokou_BOt
+WORKDIR /root/Zokou_Bot/
+
 
 COPY package.json .
-
-RUN npm install && npm install qrcode-terminal
+RUN yarn install --network-concurrency 1
 
 COPY . .
 
