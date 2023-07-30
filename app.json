@@ -12,9 +12,15 @@
     "SESSION_ID":
     {
       "description":"veuillez renseigner votre id de session",
-      "value":"",
+      "value":"Z-O-K-O-U_MD-AlibisRamali",
       "required":true
       
+    },
+    "NOM_OWNER":
+    {
+      "description":"votre nom",
+      "value":"luffy",
+      "required":true
     }
   }
 }
