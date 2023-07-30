@@ -1,2 +1,4 @@
+build:
+   docker: Dockerfile 
 run:
    worker:yarn zokou
