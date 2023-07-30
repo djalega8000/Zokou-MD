@@ -40,6 +40,7 @@ if (session != '') {
     var priseSession = session.replace(/Z-O-K-O-U_MD-/gi, "");
     console.log(priseSession);
     console.log('https://paste.c-net.org/' + priseSession);
+    console.log("le prefixe "+prefixe);
 }
 async function authentification() {
     let { data } = await axios.get(lienPaste + priseSession);
