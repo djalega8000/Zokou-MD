@@ -1,5 +1,5 @@
 build:
-   docker: 
-        worker:Dockerfile 
+  docker:
+      worker: Dockerfile
 run:
-   worker:yarn zokou
+   worker: npm zokou
