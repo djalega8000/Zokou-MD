@@ -1,1 +1,20 @@
-
+{
+  "name":"Zokou-MD",
+  "description":"bot whatsapp ",
+  "keywords":["bot","node"],
+  "env":{
+    "PREFIXE":
+    {
+      "description":"choisissez votre préfixe"
+      "value":"#",
+      "required":true
+    },
+    "SESSION_ID":
+    {
+      "description":"veuillez renseigner votre id de session",
+      "value":"",
+      "required":true
+      
+    }
+  }
+}
