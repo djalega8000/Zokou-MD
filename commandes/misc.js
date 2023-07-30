@@ -1,7 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+/*Object.defineProperty(exports, "__esModule", { value: true });
 module.exports.commande = () => {
-    var nomCom = ["alive"];
+    var nomCom = "alive";
     return { nomCom, execute };
 };
 async function execute(origineMessage, zok) {
@@ -11,4 +11,4 @@ async function execute(origineMessage, zok) {
     let varmess = z + d;
     var img = 'https://wallpapercave.com/uwp/uwp3842939.jpeg';
     await zok.sendMessage(origineMessage, { image: { url: img }, caption: varmess });
-}
+}*/
