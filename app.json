@@ -4,6 +4,7 @@
   "keywords":["bot","node"],
   "logo":"https://wallpapercave.com/uwp/uwp3860299.jpeg",
   "succes_url":"/",
+  "stack":"container"
   "env":{
     "PREFIXE":
     {
@@ -24,5 +25,11 @@
       "value":"luffy",
       "required":true
     }
-  }
+  },
+
+  "addons":[
+    {
+      "plan":"heroku-postgresql"
+    }
+  ]
 }
