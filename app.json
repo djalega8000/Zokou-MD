@@ -9,7 +9,7 @@
   "env":{
     "PREFIXE":
     {
-      "description":"choisissez votre préfixe"
+      "description":"choisissez votre préfixe",
       "value":"#",
       "required":true
     },
