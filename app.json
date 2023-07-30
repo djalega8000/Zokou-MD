@@ -2,6 +2,8 @@
   "name":"Zokou-MD",
   "description":"bot whatsapp ",
   "keywords":["bot","node"],
+  "logo":"https://wallpapercave.com/uwp/uwp3860299.jpeg",
+  "succes_url":"/",
   "env":{
     "PREFIXE":
     {
