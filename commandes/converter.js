@@ -1,4 +1,4 @@
-const { zokou } = require("../framework/zokou");
+/*const { zokou } = require("../framework/zokou");
 const { Sticker, createSticker, StickerTypes } = require("wa-sticker-formatter");
 
 
@@ -49,7 +49,7 @@ zokou({ nomCom: ["stickercrop","scrop"],
 })
   const stikk = await sticker.toBuffer();
    await zk.sendMessage(dest, stikk, { quoted: infoMessage })
-                 })
+                 })*/
 
     ////////////////////////////////////////////////// toimg ///////////////////////////////////
 
