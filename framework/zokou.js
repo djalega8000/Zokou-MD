@@ -1,4 +1,4 @@
-const conf = require('../config.js');
+const 
 var tabCmds = [];
 let cm = [];
 function zokou(obj, fonctions) {
@@ -14,6 +14,5 @@ function zokou(obj, fonctions) {
     console.log('chargement...');
     return infoComs;
 }
-console.log(tabCmds.length);
-console.log("outrage");
+
 module.exports = { zokou, Module: zokou, cm };
