@@ -88,6 +88,7 @@ async function main() {
         if (ms.key.fromMe) {
             auteurMessage = idBot;
         }
+        console.log("pre "+prefixe);
         const nomAuteurMessage = ms.pushName;
         function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
         console.log("\t [][]...{Zokou-Md}...[][]");
