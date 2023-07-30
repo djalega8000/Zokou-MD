@@ -10,7 +10,7 @@
     "c": "tsc"
   },
   "keywords": [],
-  "author": "Djalega++",
+  "author": "Djalega++ && luffy",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
