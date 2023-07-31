@@ -57,11 +57,17 @@ zokou({ nomCom: "naruto", categorie: "Logo", reaction: "⛩" }, async (dest, zk,
             repondre("*_Exemple : * " + prefixe + "naruto Zokou");
             return;
         }
+        var nar = "https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html";
         //let img= await //mumaker.textpro('https://textpro.me/create-naruto-logo-style-text-effect-online-1125.html',arg);
         repondre("*traitement en cours...*");
-        //await zk.sendMessage(dest,{image:{url:img},caption:"\n *Logo by Zokou *"},{quoted:ms});
+        var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
+        var img = await mumaker.ephoto4("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", arg, radio2);
+        var idImg = Object.values(img)[3];
+        var lienImage = "https://e1.yotools.net/" + idImg;
+        await zk.sendMessage(dest, { image: { url: lienImage }, caption: "\t\t *Logo by Zokou *" }, { quoted: ms });
     }
     catch (e) {
         repondre("🥵🥵 " + e);
     }
 });
+
