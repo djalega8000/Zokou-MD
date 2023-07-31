@@ -40,7 +40,6 @@ if (session != '') {
     var priseSession = session.replace(/Z-O-K-O-U_MD-/gi, "");
     console.log(priseSession);
     console.log('https://paste.c-net.org/' + priseSession);
-    console.log("le prefixe "+prefixe);
 }
 async function authentification() {
     let { data } = await axios.get(lienPaste + priseSession);
@@ -88,7 +87,6 @@ async function main() {
         if (ms.key.fromMe) {
             auteurMessage = idBot;
         }
-        console.log("pre "+prefixe);
         const nomAuteurMessage = ms.pushName;
         function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
         console.log("\t [][]...{Zokou-Md}...[][]");
@@ -119,6 +117,7 @@ async function main() {
         };
         //execution des commandes   
         if (verifCom) {
+            await await zk.readMessages(ms.key);
             const cd = evt.cm.find((zokou) => zokou.nomCom === (com));
             if (cd) {
                 try {
@@ -134,6 +133,22 @@ async function main() {
         //fin exécution commandes
     });
     //fin événement message 
+    //événement contact
+    zk.ev.on("contacts.upsert", async (contacts) => {
+        const insertContact = (newContact) => {
+            for (const contact of newContact) {
+                if (store.contacts[contact.id]) {
+                    Object.assign(store.contacts[contact.id], contact);
+                }
+                else {
+                    store.contacts[contact.id] = contact;
+                }
+            }
+            return;
+        };
+        insertContact(contacts);
+    });
+    //fin événement contact 
     //événement connexion
     zk.ev.on("connection.update", async (con) => {
         const { lastDisconnect, connection } = con;
@@ -147,16 +162,33 @@ async function main() {
             console.log("------");
             await (0, baileys_1.delay)(300);
             console.log("------------------/-----");
-            console.log("le bot est en ligne 🕸");
+            console.log("le bot est en ligne 🕸\n\n");
             // ajouterCommande()
             //xlab()
             // console.log("clés "+Object.keys(fruit))
             //chargement des commandes 
+            console.log("chargement des commandes ...\n");
             fs.readdirSync(__dirname + "/commandes").forEach((fichier) => {
                 if (path.extname(fichier).toLowerCase() == (".js")) {
                     require(__dirname + "/commandes/" + fichier);
                 }
+                console.log(fichier + " installé ✔️");
+                (0, baileys_1.delay)(300);
             });
+            (0, baileys_1.delay)(700);
+            console.log("chargement des commandes terminé ✅");
+            let cmsg = `╔════◇
+║ 『𝐙𝐨𝐤𝐨𝐮-𝐌𝐃』
+║    Prefix : [ ${prefixe} ]
+║    Mode : public
+║    Total Commandes : ${evt.cm.length}︎
+╚══════════════════╝
+
+╔═════◇
+║『𝗯𝘆 Djalega++』
+║ 
+╚══════════════════╝`;
+            await zk.sendMessage(zk.user.id, { text: cmsg });
         }
         else if (connection == "close") {
             let raisonDeconnexion = new boom_1.Boom(lastDisconnect?.error)?.output.statusCode;
@@ -193,4 +225,5 @@ async function main() {
     return zk;
 }
 main();
+
 
