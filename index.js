@@ -134,7 +134,7 @@ async function main() {
     });
     //fin événement message 
     //événement contact
-    zk.ev.on("contacts.upsert", async (contacts) => {
+   /* zk.ev.on("contacts.upsert", async (contacts) => {
         const insertContact = (newContact) => {
             for (const contact of newContact) {
                 if (store.contacts[contact.id]) {
@@ -147,7 +147,7 @@ async function main() {
             return;
         };
         insertContact(contacts);
-    });
+    });*/
     //fin événement contact 
     //événement connexion
     zk.ev.on("connection.update", async (con) => {
