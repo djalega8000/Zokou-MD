@@ -10,6 +10,7 @@ zokou({ nomCom: "menu", categorie: "Général" }, async (dest, zk, commandeOptio
     let { ms, repondre } = commandeOptions;
     let { cm } = require(__dirname + "/../framework//zokou");
     var coms = {};
+    var emoji = { "Général": "🌐", "Logo": "🎨", "hentai": "🔥", "weeb": "🌸", "recherche": "🔍", "conversion": "🌟" };
     cm.map(async (com, index) => { if (!coms[com.categorie])
         coms[com.categorie] = []; coms[com.categorie].push(com.nomCom); });
     const temps = moment(moment()).format("HH:MM:SS");
@@ -54,9 +55,12 @@ zokou({ nomCom: "menu", categorie: "Général" }, async (dest, zk, commandeOptio
 ║    Développeurs : Djalega++||Luffy
 ╚════--------------- \n\n`;
     for (const cat in coms) {
-        menuMsg += `==== *${cat} * ====\n`;
+        if (!emoji[cat]) {
+            emoji[cat] = "🔋";
+        }
+        menuMsg += `${emoji[cat]} ══ *${cat} * ══ ${emoji[cat]}\n`;
         for (const cmd of coms[cat]) {
-            menuMsg += "🪰" + cmd + "\n";
+            menuMsg += "\t  ║ " + cmd + "" + " \n";
         }
     }
     var link = "https://wallpapercave.com/uwp/uwp3860299.jpeg";
@@ -201,3 +205,4 @@ var tt=[]
     */
 //   
 // }
+
