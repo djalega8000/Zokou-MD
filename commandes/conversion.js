@@ -84,9 +84,9 @@ const alea = (ext) => {
     },
     { quoted: ms }
   );
-  try{
+/*  try{
     fs.unlinkSync(stickerFileName);
-  }catch(e){console.log(e);}
+  }catch(e){console.log(e);}*/
 
 
 
