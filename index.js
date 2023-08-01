@@ -117,7 +117,7 @@ async function main() {
         };
         //execution des commandes   
         if (verifCom) {
-            await await zk.readMessages(ms.key);
+            //await await zk.readMessages(ms.key);
             const cd = evt.cm.find((zokou) => zokou.nomCom === (com));
             if (cd) {
                 try {
