@@ -13,9 +13,15 @@
       "value":"#",
       "required":true
     },
+    "API_LOL_HUMAIN":
+    {
+      "description":"placer votre  apikey de chez api.lolhumain.xyz(pas obligatoire)",
+      "value":"remplace_moi",
+      "required":false
+    },
     "SESSION_ID":
     {
-      "description":"veuillez renseigner votre id de session",
+      "description":"veuillez renseigner votre id de session",   
       "value":"Z-O-K-O-U_MD-AlibisRamali",
       "required":true
       
