@@ -59,7 +59,7 @@ async (origineMessage, zk, commandeOptions) => {
     const response = await axios.get(url);
     const imageUrl = response.data.url;
 
-    zk.sendMessage(origineMessage, { image: { url: imageUrl } ,caption : " \t by Djalega++" }, { quoted: ms }); }
+    zk.sendMessage(origineMessage, { image: { url: imageUrl } ,caption : " \t " }, { quoted: ms }); }
   } catch (error) {
     repondre('Erreur lors de la récupération des données :', error);
   }
