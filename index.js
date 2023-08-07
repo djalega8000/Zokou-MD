@@ -57,127 +57,180 @@ authentification();
 const store = (0, baileys_1.makeInMemoryStore)({
     logger: pino().child({ level: "silent", stream: "store" }),
 });
-async function main() {
-    const { state, saveCreds } = await (0, baileys_1.useMultiFileAuthState)(__dirname + "/auth");
-    const sockOptions = {
-        logger: pino({ level: "silent" }),
-        browser: ['Zokou-Md', "safari", "1.0.0"],
-        printQRInTerminal: true,
-        auth: state
-    };
-    const zk = (0, baileys_1.default)(sockOptions);
-    store.bind(zk.ev);
-    setInterval(() => { store.writeToFile("stor.json"); }, 3000);
-    zk.ev.on("messages.upsert", async (m) => {
-        const { messages } = m;
-        const ms = messages[0];
-        if (!ms.message)
-            return;
-        var mtype = (0, baileys_1.getContentType)(ms.message);
-        var texte = mtype == "conversation" ? ms.message.conversation : mtype == "imageMessage" ? ms.message.imageMessage?.caption : mtype == "videoMessage" ? ms.message.videoMessage?.caption : mtype == "extendedTextMessage" ? ms.message?.extendedTextMessage?.text : mtype == "buttonsResponseMessage" ?
-            ms?.message?.buttonsResponseMessage?.selectedButtonId : mtype == "listResponseMessage" ?
-            ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId : mtype == "messageContextInfo" ?
-            (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
-        var origineMessage = ms.key.remoteJid;
-        var idBot = zk.user.id;
-        const verifGroupe = origineMessage?.endsWith("@g.us");
-        var infosGroupe = verifGroupe ? await zk.groupMetadata(origineMessage) : "";
-        var nomGroupe = verifGroupe ? infosGroupe.subject : "";
-        var auteurMessage = verifGroupe ? ms.key.participant : origineMessage;
-        if (ms.key.fromMe) {
-            auteurMessage = idBot;
-        }
-        const nomAuteurMessage = ms.pushName;
-        function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
-        console.log("\t [][]...{Zokou-Md}...[][]");
-        console.log("=========== Nouveau message ===========");
-        if (verifGroupe) {
-            console.log("message provenant du groupe : " + nomGroupe);
-        }
-        console.log("message envoyé par : " + "[" + nomAuteurMessage + " : " + auteurMessage.split("@s.whatsapp.net")[0] + " ]");
-        console.log("type de message : " + mtype);
-        console.log("------ contenu du message ------");
-        console.log(texte);
-        /** ***** */
-        const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
-        const verifCom = texte ? texte.startsWith(prefixe) : false;
-        const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
-        var commandeOptions = {
-            verifGroupe,
-            infosGroupe,
-            nomGroupe,
-            auteurMessage,
-            nomAuteurMessage,
-            idBot,
-            prefixe,
-            arg,
-            repondre,
-            mtype,
-            ms
+setTimeout(() => {
+    async function main() {
+        const { state, saveCreds } = await (0, baileys_1.useMultiFileAuthState)(__dirname + "/auth");
+        const sockOptions = {
+            logger: pino({ level: "silent" }),
+            browser: ['Zokou-Md', "safari", "1.0.0"],
+            printQRInTerminal: true,
+            auth: state
         };
-        //execution des commandes   
-        if (verifCom) {
-            //await await zk.readMessages(ms.key);
-            const cd = evt.cm.find((zokou) => zokou.nomCom === (com));
-            if (cd) {
-                try {
-                    reagir(origineMessage, zk, ms, cd.reaction);
-                    cd.fonction(origineMessage, zk, commandeOptions);
+        const zk = (0, baileys_1.default)(sockOptions);
+        store.bind(zk.ev);
+        setInterval(() => { store.writeToFile("stor.json"); }, 3000);
+        zk.ev.on("messages.upsert", async (m) => {
+            const { messages } = m;
+            const ms = messages[0];
+            if (!ms.message)
+                return;
+            const decodeJid = (jid) => {
+                if (!jid)
+                    return jid;
+                if (/:\d+@/gi.test(jid)) {
+                    let decode = (0, baileys_1.jidDecode)(jid) || {};
+                    return decode.user && decode.server && decode.user + '@' + decode.server || jid;
                 }
-                catch (e) {
-                    console.log("😡😡 " + e);
-                    zk.sendMessage(origineMessage, { text: "😡😡 " + e }, { quoted: ms });
+                else
+                    return jid;
+            };
+            var mtype = (0, baileys_1.getContentType)(ms.message);
+            var texte = mtype == "conversation" ? ms.message.conversation : mtype == "imageMessage" ? ms.message.imageMessage?.caption : mtype == "videoMessage" ? ms.message.videoMessage?.caption : mtype == "extendedTextMessage" ? ms.message?.extendedTextMessage?.text : mtype == "buttonsResponseMessage" ?
+                ms?.message?.buttonsResponseMessage?.selectedButtonId : mtype == "listResponseMessage" ?
+                ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId : mtype == "messageContextInfo" ?
+                (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
+            var origineMessage = ms.key.remoteJid;
+            var idBot = decodeJid(zk.user.id);
+            var servBot = idBot.split('@')[0];
+            const dj = '22559763447';
+            const dj2 = '2250143343357';
+            const luffy = '22891733300';
+            var superUser = [servBot, dj, dj2, luffy].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            var dev = [dj, dj2, luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            const verifGroupe = origineMessage?.endsWith("@g.us");
+            var infosGroupe = verifGroupe ? await zk.groupMetadata(origineMessage) : "";
+            var nomGroupe = verifGroupe ? infosGroupe.subject : "";
+            var msgRepondu = ms.message.extendedTextMessage?.contextInfo?.quotedMessage;
+            var auteurMsgRepondu = decodeJid(ms.message?.extendedTextMessage?.contextInfo?.participant);
+            //ms.message.extendedTextMessage?.contextInfo?.mentionedJid
+            // ms.message.extendedTextMessage?.contextInfo?.quotedMessage.
+            var mr = ms.message?.extendedTextMessage?.contextInfo?.mentionedJid;
+            var utilisateur = mr ? mr : msgRepondu ? auteurMsgRepondu : "";
+            var auteurMessage = verifGroupe ? (ms.key.participant ? ms.key.participant : ms.participant) : origineMessage;
+            if (ms.key.fromMe) {
+                auteurMessage = idBot;
+            }
+            var membreGroupe = verifGroupe ? ms.key.participant : '';
+            const nomAuteurMessage = ms.pushName;
+            function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
+            console.log("\t [][]...{Zokou-Md}...[][]");
+            console.log("=========== Nouveau message ===========");
+            if (verifGroupe) {
+                console.log("message provenant du groupe : " + nomGroupe);
+            }
+            console.log("message envoyé par : " + "[" + nomAuteurMessage + " : " + auteurMessage.split("@s.whatsapp.net")[0] + " ]");
+            console.log("type de message : " + mtype);
+            console.log("------ contenu du message ------");
+            console.log(texte);
+            /**  */
+            function groupeAdmin(membreGroupe) {
+                let admin = [];
+                for (m of membreGroupe) {
+                    if (m.admin == null)
+                        continue;
+                    admin.push(m.id);
+                }
+                // else{admin= false;}
+                return admin;
+            }
+            const mbre = verifGroupe ? await infosGroupe.participants : '';
+            //  const verifAdmin = verifGroupe ? await mbre.filter(v => v.admin !== null).map(v => v.id) : ''
+            let admins = verifGroupe ? groupeAdmin(membreGroupe) : '';
+            const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
+            const verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
+            // const verifAdmin = groupeAdmin(auteurMessage);
+            /** ** */
+            /** ***** */
+            const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
+            const verifCom = texte ? texte.startsWith(prefixe) : false;
+            const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
+            var commandeOptions = {
+                superUser, dev,
+                verifGroupe,
+                mbre,
+                membreGroupe,
+                verifAdmin,
+                infosGroupe,
+                nomGroupe,
+                auteurMessage,
+                nomAuteurMessage,
+                idBot,
+                verifZokouAdmin,
+                prefixe,
+                arg,
+                repondre,
+                mtype,
+                groupeAdmin,
+                msgRepondu,
+                auteurMsgRepondu,
+                ms
+            };
+            if (conf.MODE != 'oui' && !servBot) {
+                return;
+            }
+            //execution des commandes   
+            if (verifCom) {
+                //await await zk.readMessages(ms.key);
+                const cd = evt.cm.find((zokou) => zokou.nomCom === (com));
+                if (cd) {
+                    try {
+                        reagir(origineMessage, zk, ms, cd.reaction);
+                        cd.fonction(origineMessage, zk, commandeOptions);
+                    }
+                    catch (e) {
+                        console.log("😡😡 " + e);
+                        zk.sendMessage(origineMessage, { text: "😡😡 " + e }, { quoted: ms });
+                    }
                 }
             }
-        }
-        //fin exécution commandes
-    });
-    //fin événement message 
-    //événement contact
-   /* zk.ev.on("contacts.upsert", async (contacts) => {
-        const insertContact = (newContact) => {
-            for (const contact of newContact) {
-                if (store.contacts[contact.id]) {
-                    Object.assign(store.contacts[contact.id], contact);
+            //fin exécution commandes
+        });
+        //fin événement message
+        //événement contact
+        zk.ev.on("contacts.upsert", async (contacts) => {
+            const insertContact = (newContact) => {
+                for (const contact of newContact) {
+                    if (store.contacts[contact.id]) {
+                        Object.assign(store.contacts[contact.id], contact);
+                    }
+                    else {
+                        store.contacts[contact.id] = contact;
+                    }
                 }
-                else {
-                    store.contacts[contact.id] = contact;
-                }
+                return;
+            };
+            insertContact(contacts);
+        });
+        //fin événement contact 
+        //événement connexion
+        zk.ev.on("connection.update", async (con) => {
+            const { lastDisconnect, connection } = con;
+            if (connection === "connecting") {
+                console.log("ℹ️ Connexion en cours...");
             }
-            return;
-        };
-        insertContact(contacts);
-    });*/
-    //fin événement contact 
-    //événement connexion
-    zk.ev.on("connection.update", async (con) => {
-        const { lastDisconnect, connection } = con;
-        if (connection === "connecting") {
-            console.log("ℹ️ Connexion en cours...");
-        }
-        else if (connection === 'open') {
-            console.log("✅ connexion reussie! ☺️");
-            console.log("--");
-            await (0, baileys_1.delay)(200);
-            console.log("------");
-            await (0, baileys_1.delay)(300);
-            console.log("------------------/-----");
-            console.log("le bot est en ligne 🕸\n\n");
-            // ajouterCommande()
-            //xlab()
-            // console.log("clés "+Object.keys(fruit))
-            //chargement des commandes 
-            console.log("chargement des commandes ...\n");
-            fs.readdirSync(__dirname + "/commandes").forEach((fichier) => {
-                if (path.extname(fichier).toLowerCase() == (".js")) {
-                    require(__dirname + "/commandes/" + fichier);
-                }
-                console.log(fichier + " installé ✔️");
-                (0, baileys_1.delay)(300);
-            });
-            (0, baileys_1.delay)(700);
-            console.log("chargement des commandes terminé ✅");
-            let cmsg = `╔════◇
+            else if (connection === 'open') {
+                console.log("✅ connexion reussie! ☺️");
+                console.log("--");
+                await (0, baileys_1.delay)(200);
+                console.log("------");
+                await (0, baileys_1.delay)(300);
+                console.log("------------------/-----");
+                console.log("le bot est en ligne 🕸\n\n");
+                // ajouterCommande()
+                //xlab()
+                // console.log("clés "+Object.keys(fruit))
+                //chargement des commandes 
+                console.log("chargement des commandes ...\n");
+                fs.readdirSync(__dirname + "/commandes").forEach((fichier) => {
+                    if (path.extname(fichier).toLowerCase() == (".js")) {
+                        require(__dirname + "/commandes/" + fichier);
+                        console.log(fichier + " installé ✔️");
+                        (0, baileys_1.delay)(300);
+                    }
+                });
+                (0, baileys_1.delay)(700);
+                console.log("chargement des commandes terminé ✅");
+                let cmsg = `╔════◇
 ║ 『𝐙𝐨𝐤𝐨𝐮-𝐌𝐃』
 ║    Prefix : [ ${prefixe} ]
 ║    Mode : public
@@ -188,42 +241,41 @@ async function main() {
 ║『𝗯𝘆 Djalega++』
 ║ 
 ╚══════════════════╝`;
-            await zk.sendMessage(zk.user.id, { text: cmsg });
-        }
-        else if (connection == "close") {
-            let raisonDeconnexion = new boom_1.Boom(lastDisconnect?.error)?.output.statusCode;
-            if (raisonDeconnexion === baileys_1.DisconnectReason.badSession) {
-                console.log('Session id érronée veuillez rescanner le qr svp ...');
+                await zk.sendMessage(zk.user.id, { text: cmsg });
             }
-            else if (raisonDeconnexion === baileys_1.DisconnectReason.connecetionClosed) {
-                console.log('!!! connexion fermée, reconnexion en cours ...');
-                main();
+            else if (connection == "close") {
+                let raisonDeconnexion = new boom_1.Boom(lastDisconnect?.error)?.output.statusCode;
+                if (raisonDeconnexion === baileys_1.DisconnectReason.badSession) {
+                    console.log('Session id érronée veuillez rescanner le qr svp ...');
+                }
+                else if (raisonDeconnexion === baileys_1.DisconnectReason.connectionClosed) {
+                    console.log('!!! connexion fermée, reconnexion en cours ...');
+                    main();
+                }
+                else if (raisonDeconnexion === baileys_1.DisconnectReason.connectionLost) {
+                    console.log('connexion au serveur perdue 😞 ,,, reconnexion en cours ... ');
+                    main();
+                }
+                else if (raisonDeconnexion === baileys_1.DisconnectReason?.connectionReplaced) {
+                    console.log('connexion réplacée ,,, une sesssion est déjà ouverte veuillez la fermer svp !!!');
+                }
+                else if (raisonDeconnexion === baileys_1.DisconnectReason.loggedOut) {
+                    console.log('vous êtes déconnecté,,, veuillez rescanner le code qr svp');
+                }
+                else if (raisonDeconnexion === baileys_1.DisconnectReason.restartRequired) {
+                    console.log('redémarrage en cours ▶️');
+                    main();
+                }
+                // sleep(50000)
+                console.log("hum " + connection);
+                main(); //console.log(session)
             }
-            else if (raisonDeconnexion === baileys_1.DisconnectReason.connectionLost) {
-                console.log('connexion au serveur perdue 😞 ,,, reconnexion en cours ... ');
-                main();
-            }
-            else if (raisonDeconnexion === baileys_1.DisconnectReason?.connectionReplaced) {
-                console.log('connexion réplacée ,,, une sesssion est déjà ouverte veuillez la fermer svp !!!');
-            }
-            else if (raisonDeconnexion === baileys_1.DisconnectReason.loggedOut) {
-                console.log('vous êtes déconnecté,,, veuillez rescanner le code qr svp');
-            }
-            else if (raisonDeconnexion === baileys_1.DisconnectReason.restartRequired) {
-                console.log('redémarrage en cours ▶️');
-                main();
-            }
-            // sleep(50000)
-            console.log("hum " + connection);
-            console.log(session);
-        }
-    });
-    //fin événement connexion
-    //événement authentification 
-    zk.ev.on("creds.update", saveCreds);
-    //fin événement authentification 
-    return zk;
-}
-main();
-
-
+        });
+        //fin événement connexion
+        //événement authentification 
+        zk.ev.on("creds.update", saveCreds);
+        //fin événement authentification 
+        return zk;
+    }
+    main();
+}, 5000);
