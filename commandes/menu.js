@@ -10,7 +10,11 @@ zokou({ nomCom: "menu", categorie: "Général" }, async (dest, zk, commandeOptio
     let { ms, repondre } = commandeOptions;
     let { cm } = require(__dirname + "/../framework//zokou");
     var coms = {};
-    var emoji = { "Général": "🌐", "Logo": "🎨", "hentai": "🔥", "weeb": "🌸", "recherche": "🔍", "conversion": "🌟" };
+    var mode = "public";
+    if (s.MODE_PUBLIC != "oui") {
+        mode = "privé";
+    }
+    var emoji = { "Général": "🌐", "Logo": "🎨", "hentai": "🔥", "weeb": "🌸", "recherche": "🔍", "conversion": "🌟", "groupe": "♻️" };
     cm.map(async (com, index) => { if (!coms[com.categorie])
         coms[com.categorie] = []; coms[com.categorie].push(com.nomCom); });
     const temps = moment(moment()).format("HH:MM:SS");
@@ -46,7 +50,8 @@ zokou({ nomCom: "menu", categorie: "Général" }, async (dest, zk, commandeOptio
     menuMsg += `
 ╔════---------
 ║    Préfixe : ${s.PREFIXE}
-║    Owner : ${s.NOM_OWNER}
+║    Owner : ${s.NOM_OWNER}    
+║    Mode : ${mode}
 ║    Commandes:${cm.length}
 ║    Date : ${date}
 ║    Heure : ${temps}
@@ -205,4 +210,3 @@ var tt=[]
     */
 //   
 // }
-

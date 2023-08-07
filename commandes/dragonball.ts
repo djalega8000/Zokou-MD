@@ -12,7 +12,7 @@ module.exports.commande = ()=>
 async function execute (dest,zok,commandeOptions?)
 {
 let {arg,repondre,prefixe,infoMessage} = commandeOptions
-  const noArgMsg= `*_EXEMPLE *:  ${prefixe}dragonball Djalega++`
+  const noArgMsg= `*_EXEMPLE *:  ${prefixe}dragonball Djalega++` 
   //  if(arg=='') {await zok.sendMessage(dest,{text:noArgMsg},{quoted:infoMessage}); return;}
 
   if(arg=='')
@@ -36,4 +36,4 @@ let {arg,repondre,prefixe,infoMessage} = commandeOptions
   var ms = "     logo by Zokou-Md "
   await zok.sendMessage(dest,{image:{url :lienImage},caption:`*${ms}*`},{quoted:infoMessage})
   
-}*/ 
+}*/

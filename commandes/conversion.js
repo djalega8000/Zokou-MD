@@ -84,15 +84,14 @@ const alea = (ext) => {
     },
     { quoted: ms }
   );
-/*  try{
-    fs.unlinkSync(stickerFileName);
-  }catch(e){console.log(e);}*/
 
-
+try{
+  fs.unlinkSync(stickerFileName)
+}catch(e){console.log(e)}
 
 
 
 
 
   
-})
+});

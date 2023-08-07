@@ -1,86 +1,144 @@
-
-const {zokou } = require("../framework/zokou");
 const axios = require('axios');
-/*
+const fs = require('fs');
+const { zokou } = require("../framework/zokou");
+const { writeFile } = require('fs/promises')
+
+// Commande waifu
 zokou({
-  nomCom: "hwaifu",
-  categorie: "hentai",
-  reaction: "🙄"
+  nomCom: "waifu",
+  categorie: "weeb",
+  reaction: "😏"
 },
 async (origineMessage, zk, commandeOptions) => {
   const { repondre, ms } = commandeOptions;
 
-  const url = 'https://api.waifu.pics/nsfw/waifu'; // Remplace avec ton lien réel
+  const url = 'https://api.waifu.pics/sfw/waifu'; // Remplacez avec le lien réel de l'API waifu.pics
 
   try {
-    const response = await axios.get(url);
-    const imageUrl = response.data.url;
+    
+    for (let i = 0; i < 5; i++) {
+      const response = await axios.get(url);
+      const imageUrl = response.data.url;
 
-    zk.sendMessage(origineMessage, { image: { url: imageUrl } }, { quoted: ms });
+      zk.sendMessage(origineMessage, { image: { url: imageUrl } }, { quoted: ms });
+    }
+  } catch (error) {
+    repondre('Erreur lors de la récupération des données :', error);
+  }
+});
+
+// Commande neko
+zokou({
+  nomCom: "neko",
+  categorie: "weeb",
+  reaction: "😺"
+},
+async (origineMessage, zk, commandeOptions) => {
+  const { repondre, ms } = commandeOptions;
+
+  const url = 'https://api.waifu.pics/sfw/neko'; // Remplacez avec le lien réel de l'API waifu.pics ou une autre API de nekos
+
+  try {
+    for (let i = 0; i < 5; i++) {
+      const response = await axios.get(url);
+      const imageUrl = response.data.url;
+
+      zk.sendMessage(origineMessage, { image: { url: imageUrl } }, { quoted: ms });
+    }
+  } catch (error) {
+    repondre('Erreur lors de la récupération des données :', error);
+  }
+});
+
+// Commande shinobu
+zokou({
+  nomCom: "shinobu",
+  categorie: "weeb",
+  reaction: "🦋"
+},
+async (origineMessage, zk, commandeOptions) => {
+  const { repondre, ms } = commandeOptions;
+
+  const url = 'https://api.waifu.pics/sfw/shinobu'; // Remplacez avec le lien réel de l'API waifu.pics ou une autre API avec des images de Shinobu
+
+  try {
+    for (let i = 0; i < 5; i++) {
+      const response = await axios.get(url);
+      const imageUrl = response.data.url;
+
+      zk.sendMessage(origineMessage, { image: { url: imageUrl } }, { quoted: ms });
+    }
+  } catch (error) {
+    repondre('Erreur lors de la récupération des données :', error);
+  }
+});
+
+// Commande megumin
+zokou({
+  nomCom: "megumin",
+  categorie: "weeb",
+  reaction: "💥"
+},
+async (origineMessage, zk, commandeOptions) => {
+  const { repondre, ms } = commandeOptions;
+
+  const url = 'https://api.waifu.pics/sfw/megumin'; // Remplacez avec le lien réel de l'API waifu.pics ou une autre API avec des images de Megumin
+
+  try {
+    for (let i = 0; i < 5; i++) {
+      const response = await axios.get(url);
+      const imageUrl = response.data.url;
+
+      zk.sendMessage(origineMessage,{ image: { url: imageUrl } }, { quoted: ms });
+    }
   } catch (error) {
     repondre('Erreur lors de la récupération des données :', error);
   }
 });
 
 
-  /////////////// hneko //////////
+
 zokou({
-  nomCom: "trap",
-  categorie: "hentai",
-  reaction: "🙄"
+  nomCom: "cosplay",
+  categorie: "weeb",
+  reaction: "😏"
 },
 async (origineMessage, zk, commandeOptions) => {
   const { repondre, ms } = commandeOptions;
 
-  const url = 'https://api.waifu.pics/nsfw/trap'; // Remplace avec ton lien réel
+
 
   try {
-    const response = await axios.get(url);
-    const imageUrl = response.data.url;
+    for (let i = 0; i < 5; i++) {
+      let url = 'https://fantox-cosplay-api.onrender.com/'
+      
+   const response = await   axios.get(url, { responseType: 'arraybuffer' })
 
-    zk.sendMessage(origineMessage, { image: { url: imageUrl } }, { quoted: ms });
-  } catch (error) {
-    repondre('Erreur lors de la récupération des données :'+ error);
-  }
-});
+  
 
-zokou({
-  nomCom: "hneko",
-  categorie: "hentai",
-  reaction: "🙄"
-},
-async (origineMessage, zk, commandeOptions) => {
-  const { repondre, ms } = commandeOptions;
+  const image = response.data;
 
-  const url = 'https://api.waifu.pics/nsfw/neko'; // Remplace avec ton lien réel
-
-  try {
-    const response = await axios.get(url);
-    const imageUrl = response.data.url;
-
-    zk.sendMessage(origineMessage, { image: { url: imageUrl } ,caption : "by Djalega++" }, { quoted: ms });
-  } catch (error) {
-    repondre('Erreur lors de la récupération des données :', error);
+   await writeFile('./cosplay.jpg', image)
+      zk.sendMessage(origineMessage,{image : {url : `./cosplay.jpg`}},{quoted :ms}) }
+  
+  } catch (e) {
+    repondre("je reçois malheureusement une erreur : " + e);
   }
 });
 
 
-zokou({
-  nomCom: "blowjob",
-  categorie: "hentai",
-  reaction: "🙄"
-},
-async (origineMessage, zk, commandeOptions) => {
-  const { repondre, ms } = commandeOptions;
-
-  const url = 'https://api.waifu.pics/nsfw/blowjob'; // Remplace avec ton lien réel
-
+zokou({nomCom:"couplepp",categorie: "weeb",reaction : "💞"},async(dest,zk,commandeOptions)=>{ const {repondre , ms} = commandeOptions;
+    let api = 'https://smiling-hosiery-bear.cyclic.app/weeb/couplepp'
   try {
-    const response = await axios.get(url);
-    const imageUrl = response.data.url;
+     repondre('apres c\'est pour prendre goumin')
+ const result = await axios.get(api)
+  
 
-    zk.sendMessage(origineMessage, { image: { url: imageUrl } }, { quoted: ms });
-  } catch (error) {
-    repondre('Erreur lors de la récupération des données :', error);
-  }
-});*/
+    zk.sendMessage(dest, { image: { url: result.data.male }, caption: `_Pour Monsieur_` }, { quoted: ms })
+        zk.sendMessage(dest, { image: { url: result.data.female }, caption: `_Pour Madame_` }, { quoted: ms })
+    
+  } catch (e) { repondre(e)}                                                                                        
+  
+}
+      )
+

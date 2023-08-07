@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 
 zokou({
-  nomCom: "play",
+  nomCom: "song",
   categorie: "recherche",
   reaction: "💿"
 }, async (origineMessage, zk, commandeOptions) => {
@@ -34,6 +34,29 @@ zokou({
 
 _*En cours de téléchargement...*_\n\n`
        }
+
+      
+
+      
+
+      
+
+      
+
+      
+//
+
+    /*  let buffer = Buffer.from([]);
+    for await (const elm of media) {
+      buffer = Buffer.concat([buffer, elm]);
+    }*/
+
+//
+
+
+
+
+
        zk.sendMessage(origineMessage,infoMess,{quoted:ms}) ;
       // Obtenir le flux audio de la vidéo
       const audioStream = ytdl(urlElement, { filter: 'audioonly', quality: 'highestaudio' });
@@ -47,7 +70,8 @@ _*En cours de téléchargement...*_\n\n`
 
       fileStream.on('finish', () => {
         // Envoi du fichier audio en utilisant l'URL du fichier local
-        zk.sendMessage(origineMessage, { audio: { url: `./${filename}` } }, { quoted: ms });
+
+        zk.sendMessage(origineMessage, { audio: { url:"./audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
         console.log("Envoi du fichier audio terminé !");
       });
 
@@ -67,7 +91,7 @@ _*En cours de téléchargement...*_\n\n`
   
 
 zokou({
-  nomCom: "playv",
+  nomCom: "video",
   categorie: "recherche",
   reaction: "🎥"
 }, async (origineMessage, zk, commandeOptions) => {
@@ -99,7 +123,7 @@ _*En cours de téléchargement...*_\n\n`
       // Obtenir les informations de la vidéo à partir du lien YouTube
       const videoInfo = await ytdl.getInfo(Element.url);
       // Format vidéo avec la meilleure qualité disponible
-      const format = ytdl.chooseFormat(videoInfo.formats, { quality: 'highestvideo' });
+      const format = ytdl.chooseFormat(videoInfo.formats, { quality: '18' });
       // Télécharger la vidéo
       const videoStream = ytdl.downloadFromInfo(videoInfo, { format });
 
@@ -112,7 +136,7 @@ _*En cours de téléchargement...*_\n\n`
 
       fileStream.on('finish', () => {
         // Envoi du fichier vidéo en utilisant l'URL du fichier local
-        zk.sendMessage(origineMessage, { video: { url: `./${filename}` }, caption: "de rien" }, { quoted: ms });
+        zk.sendMessage(origineMessage, { video: { url :"./video.mp4"} , caption: "*Zokou-Md", gifPlayback: false }, { quoted: ms });
       });
 
       fileStream.on('error', (error) => {
