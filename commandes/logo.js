@@ -9,13 +9,13 @@ zokou({ nomCom: "hacker",
     }
     try {
         let radio = "984dd03e-220d-4335-a6ba-7ac56b092240";
-        let anu = await mumaker.ephoto4("https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html", arg, radio); //
+        let anu = await mumaker.ephoto("https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html", arg); //
         //
-        let res = Object.values(anu)[3];
+       // let res = Object.values(anu)[3];
         // console.log("&€"+res);
-        let lien = "https://e1.yotools.net" + res;
+      //  let lien = "https://e1.yotools.net" + res;
         repondre("*  traitement en cour ... *");
-        await zk.sendMessage(origineMessage, { image: { url: lien }, caption: "* \t Logo by Zokou-Md*" }, { quoted: ms });
+        await zk.sendMessage(origineMessage, { image: { url:anu.image}, caption: "* \t Logo by Zokou-Md*" }, { quoted: ms });
     }
     catch (e) {
         repondre("🥵🥵 " + e);
@@ -32,18 +32,14 @@ zokou({ nomCom: "dragonball", categorie: "Logo", reaction: "🐉" }, async (dest
         }
         var lienMaker = "https://ephoto360.com/tao-hieu-ung-chu-phong-cach-dragon-ball-truc-tuyen-1000.html";
         var lienMaker2 = "https://en.ephoto360.com/create-dragon-ball-style-text-effects-online-809.html";
-        var radio = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
-        console.log('argument ' + arg);
-        //  try{
-        var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
-        const imgInfo = await mumaker.ephoto4(lienMaker2, arg, radio);
-        // }catch(e){ await zok.sendMessage(dest,{text:e},{quoted:msg}) }
+      
+       
+        const imgInfo = await mumaker.ephoto(lienMaker2, arg);
+       
         await zk.sendMessage(dest, { text: " *\t Traitement en cours ...*" }, { quoted: ms });
-        var idImg = Object.values(imgInfo)[3];
-        console.log("le " + idImg);
-        var lienImage = "https://e1.yotools.net" + idImg;
-        var msgs = "     logo by Zokou-Md ";
-        await zk.sendMessage(dest, { image: { url: lienImage }, caption: `*${msgs}*` }, { quoted: ms });
+       // var idImg = Object.values(imgInfo)[3];
+       
+        await zk.sendMessage(dest, { image: { url: imgInfo.image }, caption: "* \t Logo by Zokou-Md*" }, { quoted: ms });
     }
     catch (e) {
         repondre("🥵🥵 " + e);
@@ -61,13 +57,198 @@ zokou({ nomCom: "naruto", categorie: "Logo", reaction: "⛩" }, async (dest, zk,
         //let img= await //mumaker.textpro('https://textpro.me/create-naruto-logo-style-text-effect-online-1125.html',arg);
         repondre("*traitement en cours...*");
         var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
-        var img = await mumaker.ephoto4("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", arg, radio2);
-        var idImg = Object.values(img)[3];
-        var lienImage = "https://e1.yotools.net/" + idImg;
-        await zk.sendMessage(dest, { image: { url: lienImage }, caption: "\t\t *Logo by Zokou *" }, { quoted: ms });
+        var img = await mumaker.ephoto("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", arg);
+        
+        await zk.sendMessage(dest, { image: { url: img.image }, caption: "\t\t *Logo by Zokou *" }, { quoted: ms });
     }
     catch (e) {
         repondre("🥵🥵 " + e);
     }
 });
+//didong
+/*zokou({ nomCom: "didong", categorie: "Logo", reaction: "📱" }, async (dest, zk, commandeOptions) => {
+    let { ms, repondre, arg, prefixe } = commandeOptions;
+    
+    var titre = "\t logo by Zokou-Md";
+    try {
+      var lien = "https://ephoto360.com/tao-anh-che-vui-tu-choi-cuoc-goi-voi-ten-cua-ban-930.html";
+        if (!arg || arg == "") {
+           repondre(`*exemple :* ${prefixe}didong Zokou`)
+            return ;
+        }
+      console.log(typeof arg[0])
+        var maker = mumaker.ephoto(lien, "arg");
+        var lienImg = Object.values(maker)[1];
+        await zk.sendMessage(dest, { image: { url: lienImg }, caption: titre });
+    }
+    catch (e) {
+        repondre("🥵🥵 " + e);
+    }
+});
+*/
 
+
+zokou({ nomCom: "didong", categorie: "Logo", reaction: "📱" }, async (dest, zk, commandeOptions) => {
+    let { arg, repondre, prefixe, ms } = commandeOptions;
+   try {
+     var titre = "\t* logo by Zokou-Md*";
+      var lien = "https://ephoto360.com/tao-anh-che-vui-tu-choi-cuoc-goi-voi-ten-cua-ban-930.html";
+        if (!arg || arg == "") {
+           repondre(`*exemple :* ${prefixe}didong Zokou`)
+            return ;
+        }
+     
+        var maker =await mumaker.ephoto(lien,arg);
+    
+        
+     repondre(' Traitement en cours ...')
+       await zk.sendMessage(dest, { image: { url: maker.image}, caption: titre });
+    }
+    catch (e) {
+        repondre("🥵🥵 " + e);
+    }
+    }
+);
+
+
+zokou({nomCom : "wall",categorie : "logo",reaction : "👍"} , async (dest,zk,commandeOptions) =>{
+
+  const {arg,repondre,ms,prefixe} = commandeOptions;
+  if(!arg[0]) { repondre( `Voici comment utiliser la commande:\n ${prefixe}wall Zokou-MD` ); return ;}
+   let text = arg.join(" ")
+   mumaker.textpro("https://textpro.me/break-wall-text-effect-871.html", text)
+.then((data) =>{
+ zk.sendMessage(dest,{image : { url : data.image},caption : 'Logo fait par Zokou-Md'},{quoted:ms})
+}) 
+.catch(console.log)
+})
+;
+zokou({nomCom: "summer", categorie: "logo", reaction: "🌞"}, async (dest, zk, commandeOptions) => {
+  const { arg, repondre, ms, prefixe } = commandeOptions;
+  if (!arg[0]) {
+    repondre(`Voici comment utiliser la commande:\n ${prefixe}summer Mon_Texte`);
+    return;
+  }
+  
+  const text = arg.join(" ");
+  mumaker.textpro("https://textpro.me/create-sunset-light-text-effects-online-for-free-1124.html", text)
+    .then((data) => {
+      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo fait par Zokou-Md' }, { quoted: ms });
+    })
+    .catch(console.error);
+});
+
+zokou({nomCom: "neonlight", categorie: "Logo", reaction: "💡"}, async (dest, zk, commandeOptions) => {
+  const { arg, repondre, ms, prefixe } = commandeOptions;
+  /*if (!arg[0]) {
+    repondre(`Voici comment utiliser la commande:\n ${prefixe}neonlight Mon_Texte`);
+    return;
+  }*/
+  if(!arg ||arg=="")
+  {
+      repondre(`Voici comment utiliser la commande:\n ${prefixe}neonlight Mon_Texte`);
+    return;
+  }
+  
+  const text = arg.join(" ");
+  try{
+    
+    let maker=await mumaker.textpro("https://textpro.me/create-glowing-neon-light-text-effect-online-free-1061.html",arg)
+    //repondre(stringify(maker))
+    /*.then((data) => {*/
+     zk.sendMessage(dest, { image: { url: maker.image }, caption: 'Logo fait par Zokou-Md' }, { quoted: ms });
+    
+    /*.catch(console.error);*/
+
+  
+}catch(e){repondre("🥵🥵 "+e)}
+
+});
+
+zokou({nomCom: "greenneon", categorie: "logo", reaction: "🟢"}, async (dest, zk, commandeOptions) => {
+  const { arg, repondre, ms, prefixe } = commandeOptions;
+  if (!arg[0]) {
+    repondre(`Voici comment utiliser la commande:\n ${prefixe}greenneon Mon_Texte`);
+    return;
+  }
+  
+  const text = arg.join(" ");
+  mumaker.textpro("https://textpro.me/green-neon-text-effect-874.html", text)
+    .then((data) => {
+      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo fait par Zokou-Md' }, { quoted: ms });
+    })
+    .catch(console.error);
+});
+
+zokou({nomCom: "glitch", categorie: "logo", reaction: "🎛️"}, async (dest, zk, commandeOptions) => {
+  const { arg, repondre, ms, prefixe } = commandeOptions;
+  if (!arg[0]) {
+    repondre(`Voici comment utiliser la commande:\n ${prefixe}glitch Mon_Texte`);
+    return;
+  }
+  
+  const text = arg.join(" ");
+  mumaker.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", text)
+    .then((data) => {
+      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo fait par Zokou-Md' }, { quoted: ms });
+    })
+    .catch(console.error);
+});
+
+zokou({nomCom: "devil", categorie: "logo", reaction: "😈"}, async (dest, zk, commandeOptions) => {
+  const { arg, repondre, ms, prefixe } = commandeOptions;
+  if (!arg[0]) {
+    repondre(`Voici comment utiliser la commande:\n ${prefixe}devil Mon_Texte`);
+    return;
+  }
+  
+  const text = arg.join(" ");
+  mumaker.textpro("https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html",arg)
+    .then((data) => {
+      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo fait par Zokou-Md' }, { quoted: ms });
+    })
+    .catch(console.error);
+});
+////////////////////
+zokou(
+  {nomCom:"boom",categorie:
+    "Logo",reaction:"💥"},async(dest,zk,commandeOptions)=>{
+
+    let {ms,repondre,prefixe,arg}=commandeOptions;
+
+        if(!arg||arg=="")
+        {
+   
+          repondre(`  Exemple :* ${prefixe}boom Zokou`)
+          return ;
+        }
+       try{
+              var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
+         let radio = "984dd03e-220d-4335-a6ba-7ac56b092240";
+var lien="https://en.ephoto360.com/boom-text-comic-style-text-effect-675.html";
+        console.log(arg)
+         var img =await mumaker.ephoto(lien,arg)
+
+        //var idImg = Object.values(img)[3];
+       // var lienImage = "https://e1.yotools.net/" + idImg; 
+
+  /* let radio = "984dd03e-220d-4335-a6ba-7ac56b092240";
+         var v="https://en.ephoto360.com/boom-text-comic-style-text-effect-675.html";
+         var c="https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html"
+        let anu = await mumaker.ephoto4(v, arg, radio);      
+         let res = Object.values(anu)[3];*/
+        // console.log("&€"+res);
+       // let lien = "https://e1.yotools.net" + res;
+         
+
+repondre("  Traitement en cour ...")
+         await zk.sendMessage(dest,{image:{url:img.image},caption:"\t *Logo by Zokou-Md*"})
+         
+        // await zk.sendMessage(dest,{image:{url:lienImage},caption:"\t *Logo by Zokou-Md*"})
+         
+
+
+       }catch(e){repondre("🥵🥵 "+e)}
+    
+    }
+)
