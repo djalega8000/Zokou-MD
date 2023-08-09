@@ -30,6 +30,9 @@ const conf = require("./set");
 const axios = require("axios");
 let fs = require("fs-extra");
 let path = require("path");
+//import chalk from 'chalk'
+const { getGroupe } = require("./bdd/groupe");
+const { ajouterGroupe } = require("./bdd/groupe");
 let evt = require(__dirname + "/framework/zokou");
 //const //{loadCmd}=require("/framework/mesfonctions")
 let { reagir } = require(__dirname + "/framework/app");
@@ -38,8 +41,9 @@ const prefixe = conf.PREFIXE;
 var lienPaste = 'https://paste.c-net.org/';
 if (session != '') {
     var priseSession = session.replace(/Z-O-K-O-U_MD-/gi, "");
-    console.log(priseSession);
-    console.log('https://paste.c-net.org/' + priseSession);
+    //console.log(priseSession)
+    //console.log('https://paste.c-net.org/' + priseSession)}
+    /* console.log(chalk.green("Zokou-Md"))*/
 }
 async function authentification() {
     let { data } = await axios.get(lienPaste + priseSession);
@@ -92,11 +96,11 @@ setTimeout(() => {
             var origineMessage = ms.key.remoteJid;
             var idBot = decodeJid(zk.user.id);
             var servBot = idBot.split('@')[0];
-            const dj = '22559763447';
-            const dj2 = '2250143343357';
-            const luffy = '22891733300';
-            var superUser = [servBot, dj, dj2, luffy].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
-            var dev = [dj, dj2, luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            /* const dj='22559763447';
+             const dj2='2250143343357';
+             const luffy='22891733300'*/
+            /*  var superUser=[servBot,dj,dj2,luffy].map((s)=>s.replace(/[^0-9]/g)+"@s.whatsapp.net").includes(auteurMessage);
+              var dev =[dj,dj2,luffy].map((t)=>t.replace(/[^0-9]/g)+"@s.whatsapp.net").includes(auteurMessage);*/
             const verifGroupe = origineMessage?.endsWith("@g.us");
             var infosGroupe = verifGroupe ? await zk.groupMetadata(origineMessage) : "";
             var nomGroupe = verifGroupe ? infosGroupe.subject : "";
@@ -112,6 +116,11 @@ setTimeout(() => {
             }
             var membreGroupe = verifGroupe ? ms.key.participant : '';
             const nomAuteurMessage = ms.pushName;
+            const dj = '22559763447';
+            const dj2 = '2250143343357';
+            const luffy = '22891733300';
+            var superUser = [servBot, dj, dj2, luffy].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            var dev = [dj, dj2, luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
             function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
             console.log("\t [][]...{Zokou-Md}...[][]");
             console.log("=========== Nouveau message ===========");
@@ -135,9 +144,9 @@ setTimeout(() => {
             }
             const mbre = verifGroupe ? await infosGroupe.participants : '';
             //  const verifAdmin = verifGroupe ? await mbre.filter(v => v.admin !== null).map(v => v.id) : ''
-            let admins = verifGroupe ? groupeAdmin(membreGroupe) : '';
+            let admins = verifGroupe ? groupeAdmin(mbre) : '';
             const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
-            const verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
+            var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             // const verifAdmin = groupeAdmin(auteurMessage);
             /** ** */
             /** ***** */
@@ -165,7 +174,38 @@ setTimeout(() => {
                 auteurMsgRepondu,
                 ms
             };
-            if (conf.MODE != 'oui' && !servBot) {
+            if (texte.includes('https://') && verifGroupe) {
+                var verifZokAdmin = verifGroupe ? admins.includes(idBot) : false;
+                let req = await getGroupe(origineMessage);
+                console.log("la bd " + Object.values(req));
+                for (var a = 0; a < req.length; a++) {
+                    if (req[a].id === origineMessage) {
+                        if (req[a].antilien == "oui") {
+                            console.log('  lien détecté');
+                            repondre("lien détecté");
+                            console.log("le dev " + dev);
+                            console.log("zok admin " + verifZokouAdmin);
+                            if (!dev || !superUser) {
+                                if (verifZokouAdmin) {
+                                    if (!verifAdmin) {
+                                        var txt = "lien détecté \n";
+                                        txt += `@${auteurMessage.split("@")[0]} rétiré du groupe.`;
+                                        await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
+                                        await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
+                                    }
+                                    else {
+                                        repondre("Lien envoyé par un administrateur du groupe impossible de le retirer.");
+                                    }
+                                }
+                                else {
+                                    repondre("Désolé je suis pas administrateur du groupe .");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (conf.MODE != 'oui' && !superUser) {
                 return;
             }
             //execution des commandes   
@@ -216,9 +256,6 @@ setTimeout(() => {
                 await (0, baileys_1.delay)(300);
                 console.log("------------------/-----");
                 console.log("le bot est en ligne 🕸\n\n");
-                // ajouterCommande()
-                //xlab()
-                // console.log("clés "+Object.keys(fruit))
                 //chargement des commandes 
                 console.log("chargement des commandes ...\n");
                 fs.readdirSync(__dirname + "/commandes").forEach((fichier) => {
