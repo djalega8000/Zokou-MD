@@ -460,3 +460,40 @@ zokou({nomCom:"gold",categorie:"Logo",reaction:"🥵"},async(dest,zk,commandeOpt
     await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by Zokou-Md*"},{quoted:ms})
   }catch(e){repondre(e)}
 })
+
+
+zokou({nomCom:"arena",categorie:"Logo",reaction:"🥵"},async(dest,zk,commandeOptions)=>{
+
+
+  let {ms,arg,prefixe,repondre}=commandeOptions;
+  try{
+      if(!arg||arg=="")
+      {
+        repondre(prefixe+"arena Zokou-MD");return;
+      }
+
+    var lien="https://en.ephoto360.com/create-cover-arena-of-valor-by-mastering-360.html";
+
+    var img = await mumaker.ephoto(lien,arg);
+   repondre("Traitement en cour ...")
+    await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by Zokou-Md*"},{quoted:ms})
+  }catch(e){repondre(e)}
+})
+
+zokou({nomCom:"incandescent",categorie:"Logo",reaction:"😋"},async(dest,zk,commandeOptions)=>{
+
+
+  let {ms,arg,prefixe,repondre}=commandeOptions;
+  try{
+      if(!arg||arg=="")
+      {
+        repondre(prefixe+"incandescent Zokou-MD");return;
+      }
+
+    var lien="https://en.ephoto360.com/text-effects-incandescent-bulbs-219.html";
+
+    var img = await mumaker.ephoto(lien,arg);
+   repondre("Traitement en cour ...")
+    await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by Zokou-Md*"},{quoted:ms})
+  }catch(e){repondre(e)}
+})
