@@ -331,7 +331,7 @@ zokou({nomCom : "info", categorie : "Groupe"},async (dest,zk,commandeOptions)=>{
 
 
 
-zokou({nomCom:"antilien",categorie:"groupe"},async(dest,zk,commandeOptions)=>{
+zokou({nomCom:"antilien",categorie:"Groupe",reaction:"🔗"},async(dest,zk,commandeOptions)=>{
 
   
       var {ms,repondre,arg,verifGroupe,auteurMessage,superUser, verifZokouAdmin,verifAdmin,dev}=commandeOptions;
@@ -358,12 +358,12 @@ zokou({nomCom:"antilien",categorie:"groupe"},async(dest,zk,commandeOptions)=>{
             if(verifZokouAdmin)
             {
               
-              ajouterGroupe(dest);
+              ajouterGroupe(dest,b);
               repondre("antilien activé avec succès!")
             }else{repondre("Action impossible car je ne suis pas administrateur de groupe.")}
          }else
          {
-            ajouterGroupe(dest);
+            ajouterGroupe(dest,b);
               repondre("antilien activé avec succès!")
            
          }
@@ -391,7 +391,7 @@ zokou({nomCom:"antilien",categorie:"groupe"},async(dest,zk,commandeOptions)=>{
             }else{repondre("Action impossible car je ne suis pas administrateur de groupe.")}*/
          }else
          {
-            ajouterGroupe(dest);
+            ajouterGroupe(dest,b);
               repondre("antilien désactivé avec succès!")
            
          }
