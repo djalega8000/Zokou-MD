@@ -180,9 +180,10 @@ setTimeout(() => {
                 console.log("la bd " + Object.values(req));
                 for (var a = 0; a < req.length; a++) {
                     if (req[a].id === origineMessage) {
+                        console.log("reponse " + req[a].antilien + "\n\n");
                         if (req[a].antilien == "oui") {
                             console.log('  lien détecté');
-                            repondre("lien détecté");
+                            repondre("\tlien détecté");
                             console.log("le dev " + dev);
                             console.log("zok admin " + verifZokouAdmin);
                             if (!dev || !superUser) {
