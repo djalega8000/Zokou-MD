@@ -1,13 +1,18 @@
 
 
 const {zokou}=require("../framework/zokou")
+const {getGroupe}=require("../bdd/groupe")
+const {ajouterGroupe}=require("../bdd/groupe")
 
 
 
 
-zokou({nomCom:"appel",categorie:"groupe",reaction:"📣"},async(dest,zk,commandeOptions)=>{
+zokou({nomCom:"appel",categorie:"Groupe",reaction:"📣"},async(dest,zk,commandeOptions)=>{
 
-  const {ms,repondre,arg,verifGroupe,nomGroupe,infosGroupe,nomAuteurMessage}=commandeOptions
+  const {ms,repondre,arg,verifGroupe,nomGroupe,infosGroupe,nomAuteurMessage,verifAdmin}=commandeOptions
+     
+
+  if(!verifAdmin) {repondre("Commande reserver a l'administration, Apprend a connaitre ton rang");return;}
 
   if(!verifGroupe){repondre("✋🏿 ✋🏿cette commande est réservée aux groupes ❌");return;}
    let mess = arg.join(" ")
@@ -21,7 +26,7 @@ zokou({nomCom:"appel",categorie:"groupe",reaction:"📣"},async(dest,zk,commande
 👤 Auteur : *${nomAuteurMessage}* 👋 
 📜 Message : *${mess}* 📝
 ========================\n
-Powered by 💡 Djalega++ 💡\n
+\n
 
 ` ;
 
@@ -44,7 +49,7 @@ let emoji =['🦴','👀','😮‍💨','❌','✔️','😇','⚙️','🔧','�
 }) ;
 
 
-zokou({nomCom :"lien",categorie : "groupe",reaction : "🙋"} ,async(dest, zk,commandeOptions) =>{
+zokou({nomCom :"lien",categorie : "Groupe",reaction : "🙋"} ,async(dest, zk,commandeOptions) =>{
  const {repondre,nomGroupe,nomAuteurMessage,verifGroupe} =commandeOptions;
   if (!verifGroupe) {repondre("wait bro , tu veux le lien de mon dm?");return;};
         
@@ -60,7 +65,7 @@ repondre(mess)
 
 }) ;
 /** *nommer un membre comme admin */
-zokou({nomCom : "nommer" , categorie : "groupe",reaction:"👨🏿‍💼"},async ( dest , zk , commandeOptions)=>
+zokou({nomCom : "nommer" , categorie : "Groupe",reaction:"👨🏿‍💼"},async ( dest , zk , commandeOptions)=>
   {
     let {ms,repondre,msgRepondu,infosGroupe,auteurMsgRepondu,verifAdmin,verifZokouAdmin,verifGroupe,utilisateur,mbre,auteurMessage,superUser,idBot}=commandeOptions;
     let membresGroupe=verifGroupe?await infosGroupe.participants:""
@@ -133,7 +138,7 @@ const a= verifGroupe? memberAdmin(membresGroupe):'';
   //fin nommer
 /** ***demettre */
 
- zokou({nomCom : "demettre" , categorie : "groupe",reaction:"👨🏿‍💼"},async ( dest , zk , commandeOptions)=>
+ zokou({nomCom : "demettre" , categorie : "Groupe",reaction:"👨🏿‍💼"},async ( dest , zk , commandeOptions)=>
   {
     let {ms,repondre,msgRepondu,infosGroupe,auteurMsgRepondu,verifAdmin,verifZokouAdmin,verifGroupe,utilisateur,mbre,auteurMessage,superUser,idBot}=commandeOptions;
     let membresGroupe=verifGroupe?await infosGroupe.participants:""
@@ -208,7 +213,7 @@ const a= verifGroupe? memberAdmin(membresGroupe):'';
 
 /** ***fin démettre****  **/
 /** **retirer** */
- zokou({nomCom : "retirer" , categorie : "groupe",reaction:"👨🏿‍💼"},async ( dest , zk , commandeOptions)=>
+ zokou({nomCom : "retirer" , categorie : "Groupe",reaction:"👨🏿‍💼"},async ( dest , zk , commandeOptions)=>
   {
     let {ms,repondre,msgRepondu,infosGroupe,auteurMsgRepondu,verifAdmin,verifZokouAdmin,verifGroupe,utilisateur,mbre,auteurMessage,superUser,idBot}=commandeOptions;
     let membresGroupe=verifGroupe?await infosGroupe.participants:""
@@ -284,21 +289,18 @@ const a= verifGroupe? memberAdmin(membresGroupe):'';
 /** *****fin retirer */
 
 
-  zokou({nomCom : "supp" , categorie : "groupe" } , async ( dest , zk , commandeOptions)=> {
+  zokou({nomCom : "supp" , categorie : "Groupe" } , async ( dest , zk , commandeOptions)=> {
 
-  const {ms,repondre,verifGroupe} = commandeOptions
+  const {ms,repondre,verifGroupe,auteurMsgRepondu,verifAdmin} = commandeOptions
   if (!verifGroupe) {repondre("commande reserver au groupe uniquement") ; return };
+    if (verifAdmin) { repondre("Commande reserver a l'administration, Apprend a connaitre ton rang"); return;};
 
-    try {  const key = {
-      remoteJid: dest,
-      id: ms.id,
-      participant: ms.sender,
-    };
-  await zk.sendMessage(dest, { delete: key }) } catch (e) { repondre("j'ai besoin du privileges d'admin pour supprimer des messages")}
+    try {
+  await zk.sendMessage(dest, { delete: auteurMsgRepondu.key }) } catch (e) { repondre("j'ai besoin du privileges d'admin pour supprimer des messages")}
   
 });
 
-zokou({nomCom : "info", categorie : "groupe"},async (dest,zk,commandeOptions)=>{
+zokou({nomCom : "info", categorie : "Groupe"},async (dest,zk,commandeOptions)=>{
   const {ms,repondre,verifGroupe,verifZokouAdmin} = commandeOptions;
     if (!verifGroupe) {repondre("commande réservée au groupe uniquement") ; return}  ;
 
@@ -329,3 +331,71 @@ zokou({nomCom : "info", categorie : "groupe"},async (dest,zk,commandeOptions)=>{
 
 
 
+zokou({nomCom:"antilien",categorie:"groupe"},async(dest,zk,commandeOptions)=>{
+
+  
+      var {ms,repondre,arg,verifGroupe,auteurMessage,superUser, verifZokouAdmin,verifAdmin,dev}=commandeOptions;
+  var b = arg.join(" ")
+  console.log(b)
+  if(!verifGroupe)
+  {
+    return repondre("*uniquement pour les groupes*");
+  }
+     try{
+          if(!arg||arg=="")
+          {
+            return;
+          }
+
+       if(b=="oui")
+       { 
+         if(!dev)
+         {
+           if(!verifAdmin)
+           {repondre("Désolé vous ne pouver activer l'antilien car vous n'êtes pas admistrateur du groupe.") ;return;}
+           // ajouterGroupe(dest,b);
+              //repondre("antilien activé avec succès!")
+            if(verifZokouAdmin)
+            {
+              
+              ajouterGroupe(dest);
+              repondre("antilien activé avec succès!")
+            }else{repondre("Action impossible car je ne suis pas administrateur de groupe.")}
+         }else
+         {
+            ajouterGroupe(dest);
+              repondre("antilien activé avec succès!")
+           
+         }
+       
+       }else if(b=="non")
+       {
+         let req=await getGroupe(dest);
+              if(!dev)
+         {
+           
+           if(!verifAdmin)
+           {repondre("Désolé vous ne pouver désactiver l'antilien car vous n'êtes pas admistrateur du groupe."); return;}
+
+         /* for(const)
+             {
+               
+             }*/
+            ajouterGroupe(dest,b);
+              repondre("antilien désactivé avec succès!")
+          /*  if(verifZokouAdmin)
+            {
+              
+              ajouterGroupe(dest);
+              repondre("antilien activé avec succès!")
+            }else{repondre("Action impossible car je ne suis pas administrateur de groupe.")}*/
+         }else
+         {
+            ajouterGroupe(dest);
+              repondre("antilien désactivé avec succès!")
+           
+         }
+       }
+     }catch(e){}
+  
+})
