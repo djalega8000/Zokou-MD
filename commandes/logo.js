@@ -426,3 +426,37 @@ zokou({ nomCom: "neon", categorie: "Logo", reaction: "💡" }, async (dest, zk, 
     });
 });
 
+
+
+zokou({nomCom:"purple",categorie:"Logo",reaction:"🧳"},async(dest,zk,commandeOptions)=>{
+  var {ms,repondre,prefixe,arg}=commandeOptions;
+  
+    try{
+      if(!arg||arg=="")
+  {
+    repondre(prefixe+"purple zokou");return;}
+      const lien="https://en.ephoto360.com/purple-text-effect-online-100.html"
+      var img = await mumaker.ephoto(lien,arg);
+      repondre(" Traitement en cour ...")
+      await zk.sendMessage(dest,{image:{url:img.image},caption:"      *Logo by Zokou-MD*"});
+    }catch(e){repondre(e)}
+  
+})
+
+zokou({nomCom:"gold",categorie:"Logo",reaction:"🥵"},async(dest,zk,commandeOptions)=>{
+
+
+  let {ms,arg,prefixe,repondre}=commandeOptions;
+  try{
+      if(!arg||arg=="")
+      {
+        repondre(prefixe+"gold Zokou-MD");return;
+      }
+
+    var lien="https://en.ephoto360.com/modern-gold-4-213.html";
+
+    var img = await mumaker.ephoto(lien,arg);
+   repondre("Traitement en cour ...")
+    await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by Zokou-Md*"},{quoted:ms})
+  }catch(e){repondre(e)}
+})
