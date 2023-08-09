@@ -22,7 +22,7 @@
     "SESSION_ID":
     {
       "description":"veuillez renseigner votre id de session",   
-      "value":"Z-O-K-O-U_MD-AlibisRamali",
+      "value":"",
       "required":true
       
     },
