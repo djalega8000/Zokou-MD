@@ -189,8 +189,15 @@ setTimeout(() => {
                             if (!dev || !superUser) {
                                 if (verifZokouAdmin) {
                                     if (!verifAdmin) {
-                                        var txt = "lien détecté \n";
-                                        txt += `@${auteurMessage.split("@")[0]} rétiré du groupe.`;
+                                        const key = {
+                                            remoteJid: origineMessage,
+                                            fromMe: false,
+                                            id: ms.key.id,
+                                            participant: auteurMessage
+                                        };
+                                        await zk.sendMessage(origineMessage, { delete: key });
+                                        var txt = "lien détecté, \n";
+                                        txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
                                         await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
                                         await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
                                     }
