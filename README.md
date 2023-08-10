@@ -32,7 +32,7 @@
 3. 
 
 ## Déploiement
-### déploiement sur [heroku](https://www.heroku.com)
+- **déploiement** sur [heroku](https://www.heroku.com)
 
 ## Contributions
 
