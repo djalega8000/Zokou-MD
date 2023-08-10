@@ -1,17 +1,18 @@
 const { zokou } = require('../framework/zokou');
-const axios = require("axios");
-const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
+const axios = require("axios") 
+let { Sticker, createSticker, StickerTypes}=require('wa-sticker-formatter');
+const conf = require("../set");
 
 zokou({ nomCom: "tgs", categorie: "apilolhumain" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg, nomAuteurMessage } = commandeOptions;
-  
+   
   if (!arg[0]) {
     repondre("veuillez insérer un lien Telegram svp");
     return;
   }
   
   let lien = arg.join(' ');
-  const apikey =  process.env.API_LOL_HUMAIN;
+  const apikey = conf.APILOLHUMAIN;
   let api = 'https://api.lolhuman.xyz/api/telestick?apikey=' + apikey + '&url=' + lien;
 
   try {
@@ -40,6 +41,8 @@ zokou({ nomCom: "tgs", categorie: "apilolhumain" }, async (dest, zk, commandeOpt
       );
     }
   } catch (e) {
-    repondre("erreur lors de la procédure \n" + e);
+    repondre("erreur lors de la procédure \n" , 'Veillez vérifier votre apikey ou si vous en avez pas , veiller crée un compte sur api.lolhumain.xyz et vous en procurer une.');
   }
 });
+
+        
