@@ -16,7 +16,7 @@
     "API_LOL_HUMAIN":
     {
       "description":"placer votre  apikey de chez api.lolhumain.xyz(pas obligatoire)",
-      "value":"null",
+      "value":"",
       "required":false
     },
     "SESSION_ID":
