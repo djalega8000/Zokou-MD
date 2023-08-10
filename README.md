@@ -34,7 +34,7 @@
 ## Déploiement
 - **déploiement** sur [**heroku**](#)
   1. si vous ne disposez pas de compte [heroku](#) cliquez [ici](https://id.heroku.com/login) pour vous en procurer un .
-  2.  cliquez [ici](https://dashboard.heroku.com/new?tempate=djalega8000/Zokou-Md) pour deployer le bot sur **heroku**
+  2.  cliquez [ici](https://dashboard.heroku.com/new?tempate=djalega8000/Zokou-MD) pour deployer le bot sur **heroku**
 
 ## Contributions
 
