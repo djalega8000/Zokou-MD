@@ -24,7 +24,7 @@
 
 ## Obtenir Zokou
 
-1. Veillez cliquer sur [Fork]() afin de copier le repo sur votre compte github.  veiller aussi ajouter une etoile 🌟 pour encourager les développeurs 
+1. Veillez cliquer sur **[Fork](https://github.com/djalega8000/Zokou-MD/fork)** afin de copier le repo sur votre compte github.  veillez bien ajouter une etoile 🌟 pour encourager les développeurs 
 
 2. Obtenez une session du bot : <br>
   [Session-ID]() <br>
