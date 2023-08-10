@@ -13,7 +13,7 @@
 
 - **Gestion de Groupe :** Zokou offre des fonctionnalités de gestion de groupe, comme l'ajout ou la suppression de membres, la configuration de règles et d'autres paramètres.
 
-- **Éditeur de Texte :** Exprimez-vous de manière unique grâce à l'éditeur de texte intégré, qui vous permet de créer des messages avec différentes mises en forme.
+- **Text to img :** Les meilleurs logos on été sélectionné pour votre confort.
 
 ## Fonctionnalités Ludiques
 
@@ -24,10 +24,11 @@
 
 ## Obtenir Zokou
 
-1. 
+1. Veillez cliquer sur [Fork]() afin de copier le repo sur votre compte github.  veiller aussi ajouter une etoile 🌟 pour encourager les développeurs 
 
-2. 
-
+2. Obtenez une session du bot : <br>
+  [Session-ID]() <br>
+  [Replit]()
 3. 
 
 ## Déploiement
