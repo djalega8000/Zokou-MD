@@ -6,10 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "s": "node index.js",
-    "zokou":"node index.js",
+    "zokou": "node index.js",
     "c": "tsc"
   },
-  "keywords": ["bot","Baileys","Zokou","whatsapp","whatsapp-bot"],
+  "keywords": [
+    "bot",
+    "Baileys",
+    "Zokou",
+    "whatsapp",
+    "whatsapp-bot"
+  ],
   "author": "Djalega++",
   "license": "ISC",
   "dependencies": {
@@ -36,6 +42,7 @@
     "instagram-url-dl": "^5.1.3",
     "jimp": "^0.22.10",
     "latest": "^0.2.0",
+    "link-preview-js": "^3.0.4",
     "lyric-music": "^1.0.0",
     "moment-timezone": "^0.5.43",
     "mumaker": "^2.0.0",
