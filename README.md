@@ -33,7 +33,7 @@
 
 ## Déploiement
 - **déploiement** sur [heroku](#)
-  1. si vous ne disposez pas de compte [heroku](#) cliquez [ici]([https://ww](https://id.heroku.com/login)) pour en procurer un .
+  1. si vous ne disposez pas de compte [heroku](#) cliquez [ici](https://id.heroku.com/login) pour vous en procurer un .
 
 ## Contributions
 
