@@ -12,7 +12,7 @@ WORKDIR /root/Zokou_Bot/
 
 
 COPY package.json .
-RUN yarn install --network-concurrency 1
+RUN npm install 
 
 COPY . .
 
