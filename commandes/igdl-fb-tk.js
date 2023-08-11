@@ -1,7 +1,6 @@
 const {zokou} = require('../framework/zokou');
 const fs = require('fs');
 const ig = require('instagram-url-dl');
-const { fetchVideo } = require('@prevter/tiktok-scraper');
  const { writeFileSync } = require('fs');
 const mumaker = require("mumaker");
 
