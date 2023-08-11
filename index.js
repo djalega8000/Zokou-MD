@@ -225,6 +225,7 @@ setTimeout(() => {
                                             console.log("antiien ") + e;
                                         }
                                         await zk.sendMessage(origineMessage, { delete: key });
+                                        await fs.unlink("st1.webp");
                                     }
                                     else {
                                         repondre("Lien envoyé par un administrateur du groupe impossible de le retirer.");
