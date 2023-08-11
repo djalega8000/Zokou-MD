@@ -15,8 +15,7 @@
     },
     "MODE_PUBIC":
     {
-      "description":"oui pour le mode public ou non pour le mode privé(Dans ce vous seul 
-      utiliserez le bot)",
+      "description":"oui pour le mode public ou non pour le mode privé(Dans ce vous seul  utiliserez le bot)",
       "value":"oui",
       "required":false
     },
