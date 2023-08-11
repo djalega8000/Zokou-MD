@@ -30,6 +30,7 @@ const conf = require("./set");
 const axios = require("axios");
 let fs = require("fs-extra");
 let path = require("path");
+const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 //import chalk from 'chalk'
 const { getGroupe } = require("./bdd/groupe");
 const { ajouterGroupe } = require("./bdd/groupe");
@@ -46,15 +47,21 @@ if (session != '') {
     /* console.log(chalk.green("Zokou-Md"))*/
 }
 async function authentification() {
-    let { data } = await axios.get(lienPaste + priseSession);
-    //console.log("le data "+data)
-    if (!fs.existsSync(__dirname + "/auth/creds.json")) {
-        console.log("connexion en cour ...");
-        await fs.writeFileSync(__dirname + "/auth/creds.json", atob(data), "utf8");
-        //console.log(session)
+    try {
+        let { data } = await axios.get(lienPaste + priseSession);
+        //console.log("le data "+data)
+        if (!fs.existsSync(__dirname + "/auth/creds.json")) {
+            console.log("connexion en cour ...");
+            await fs.writeFileSync(__dirname + "/auth/creds.json", atob(data), "utf8");
+            //console.log(session)
+        }
+        else if (fs.existsSync(__dirname + "/auth/creds.json")) {
+            await fs.writeFileSync(__dirname + "/auth/creds.json", atob(data), "utf8");
+        }
     }
-    else if (fs.existsSync(__dirname + "/auth/creds.json")) {
-        await fs.writeFileSync(__dirname + "/auth/creds.json", atob(data), "utf8");
+    catch (e) {
+        console.log("Session Invalide ");
+        return;
     }
 }
 authentification();
@@ -182,8 +189,7 @@ setTimeout(() => {
                     if (req[a].id === origineMessage) {
                         console.log("reponse " + req[a].antilien + "\n\n");
                         if (req[a].antilien == "oui") {
-                            console.log('  lien détecté');
-                            repondre("\tlien détecté");
+                            console.log('  lien détecté'); /*repondre("\tlien détecté");*/
                             console.log("le dev " + dev);
                             console.log("zok admin " + verifZokouAdmin);
                             if (!dev || !superUser) {
@@ -195,11 +201,30 @@ setTimeout(() => {
                                             id: ms.key.id,
                                             participant: auteurMessage
                                         };
-                                        await zk.sendMessage(origineMessage, { delete: key });
                                         var txt = "lien détecté, \n";
                                         txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
-                                        await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
+                                        const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/remover.gif";
+                                        var sticker = new Sticker(gifLink, {
+                                            pack: 'Zoou-Md',
+                                            author: conf.NOM_OWNER,
+                                            type: StickerTypes.FULL,
+                                            categories: ['🤩', '🎉'],
+                                            id: '12345',
+                                            quality: 50,
+                                            background: '#000000'
+                                        });
+                                        await sticker.toFile("st1.webp");
+                                        // var txt = `@${auteurMsgRepondu.split("@")[0]} a été rétiré du groupe..\n`
+                                        await zk.sendMessage(origineMessage, { sticker: fs.readFileSync("st1.webp") }, { quoted: ms });
+                                        (0, baileys_1.delay)(800);
                                         await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
+                                        try {
+                                            await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
+                                        }
+                                        catch (e) {
+                                            console.log("antiien ") + e;
+                                        }
+                                        await zk.sendMessage(origineMessage, { delete: key });
                                     }
                                     else {
                                         repondre("Lien envoyé par un administrateur du groupe impossible de le retirer.");
