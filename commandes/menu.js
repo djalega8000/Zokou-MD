@@ -191,6 +191,7 @@ var tt=[]
    
    
 )*/
+
 /* for(let a=0;a<=listeCommande.length;a++)
    {
      msg +=tt[a]
