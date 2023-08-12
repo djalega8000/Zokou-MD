@@ -1,5 +1,5 @@
 <p align="center"><h1>Zokou-Md </h1> <br> </p>
- by<h5><a href="https://github.com/djalega8000/Zokou-MD">Djalega++</a></h5>
+
             
 ![banner](/Ephoto360.com_164cb282992914.jpg)
 
