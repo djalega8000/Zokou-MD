@@ -31,7 +31,7 @@ const GIFBufferToVideoBuffer = async (image) => {
 const generateReactionCommand = (reactionName, reactionEmoji, commandName, action) => {
     zokou({
         nomCom: commandName,
-        categorie: "reaction",
+        categorie: "Reaction",
         reaction: reactionEmoji,
     },
     async (origineMessage, zk, commandeOptions) => {
