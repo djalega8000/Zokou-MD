@@ -49,6 +49,8 @@ Le Bot WhatsApp Zokou est publié sous la [Licence MIT](https://opensource.org/l
 Profitez des fonctionnalités variées du Bot WhatsApp Zokou pour améliorer vos conversations et rendre votre expérience WhatsApp plus intéressante !
 
 
-
-
-                         by [**Djalega++**](https://github.com/djalega8000/Zokou-MD/) 
+## Developpeur :
+ 
+  [**Djalega++**](https://github.com/djalega8000/Zokou-MD/)  <br>
+  [**᚛M๏𝓷keℽ D Lบffy᚜**](https://github.com/Faouz995)
+ 
