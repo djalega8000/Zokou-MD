@@ -34,9 +34,9 @@
 3. 
 
 ## Déploiement
-- **déploiement** sur [**heroku**](#)
-  1. si vous ne disposez pas de compte [heroku](#) cliquez [ici](https://id.heroku.com/login) pour vous en procurer un .
-  2.  cliquez [ici](https://dashboard.heroku.com/new?template=https://github.com/djalega8000/Zokou-MD) pour deployer le bot sur **heroku**
+- **déploiement sur heroku**
+  1. si vous ne disposez pas de compte **heroku** cliquez [**ici**](https://id.heroku.com/login) pour vous en procurer un .
+  2.  cliquez [**ici**](https://dashboard.heroku.com/new?template=https://github.com/djalega8000/Zokou-MD) pour deployer le bot sur **heroku**
 
 ## Contributions
 
@@ -47,6 +47,8 @@ Les contributions à Zokou sont les bienvenues ! Si vous avez des idées pour de
 Le Bot WhatsApp Zokou est publié sous la [Licence MIT](https://opensource.org/licenses/MIT).
 
 Profitez des fonctionnalités variées du Bot WhatsApp Zokou pour améliorer vos conversations et rendre votre expérience WhatsApp plus intéressante !
+
+
 
 
  ##                           by [**Djalega++**](https://github.com/djalega8000/Zokou-MD/) 
