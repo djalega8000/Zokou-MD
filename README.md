@@ -1,6 +1,6 @@
 
                        #  Zokou-Md  <br>
-                               by [**Dlage++**](https://github.com/djalega8000/Zokou-MD/)
+            
 ![banner](/Ephoto360.com_164cb282992914.jpg)
 
  Zokou est un bot multi-devices conçu pour enrichir vos conversations WhatsApp avec des fonctionnalités utiles et amusantes. Qu'il s'agisse de gérer des fichiers, d'interagir avec des stickers ou de faciliter la gestion de groupe, Zokou est là pour vous aider.
@@ -39,9 +39,12 @@
 ## Contributions
 
 Les contributions à Zokou sont les bienvenues ! Si vous avez des idées pour de nouvelles fonctionnalités, des améliorations ou des corrections de bogues, n'hésitez pas à ouvrir une issue ou à soumettre une demande de pull 
-
+                
 ## Licence
 
 Le Bot WhatsApp Zokou est publié sous la [Licence MIT](https://opensource.org/licenses/MIT).
 
 Profitez des fonctionnalités variées du Bot WhatsApp Zokou pour améliorer vos conversations et rendre votre expérience WhatsApp plus intéressante !
+
+
+ ##                           by [**Djalega++**](https://github.com/djalega8000/Zokou-MD/) 
