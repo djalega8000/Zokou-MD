@@ -5,11 +5,14 @@ const conf = require("../set");
 
 zokou({ nomCom: "tgs", categorie: "apilolhumain" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg, nomAuteurMessage } = commandeOptions;
-   
+
+  if (!superUser) {
+     repondre('Commande reservée au propriétaire du bot') ; return ; 
+  };
   if (!arg[0]) {
     repondre("veuillez insérer un lien Telegram svp");
     return;
-  }
+  };
   
   let lien = arg.join(' ');
   const apikey = conf.APILOLHUMAIN;
