@@ -4,7 +4,7 @@ let { Sticker, createSticker, StickerTypes}=require('wa-sticker-formatter');
 const conf = require("../set");
 
 zokou({ nomCom: "tgs", categorie: "apilolhumain" }, async (dest, zk, commandeOptions) => {
-  const { ms, repondre, arg, nomAuteurMessage } = commandeOptions;
+  const { ms, repondre, arg, nomAuteurMessage,superUser } = commandeOptions;
 
   if (!superUser) {
      repondre('Commande reservée au propriétaire du bot') ; return ; 
