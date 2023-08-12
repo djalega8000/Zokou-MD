@@ -15,7 +15,7 @@ const pool = new Pool(proConfig);
 
 
 const creerTableGroupe= async()=>{
- try{ await pool.query("CREATE TABLE IF NOT EXISTS groupe(id text PRIMARY KEY ,antilien text default false,action text default r);")}catch(e){console.log(e)}
+ try{ await pool.query("CREATE TABLE IF NOT EXISTS groupe(id text PRIMARY KEY ,antilien text default false);")}catch(e){console.log(e)}
 }
 
 
@@ -58,7 +58,7 @@ module.exports.ajouterGroupe=async(groupe,etat)=>
   };
 
 
-module.exports.ajouterAction=async(groupeid,action)=>
+/*module.exports.ajouterAction=async(groupeid,action)=>
 {
   if(!groupeid.endsWith("@g.us")){return;}
   var resultat;
@@ -80,4 +80,4 @@ module.exports.ajouterAction=async(groupeid,action)=>
       pool.query("commit;")
     }
   
-};
+};*/
