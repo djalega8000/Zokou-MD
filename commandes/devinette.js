@@ -96,7 +96,7 @@ const devinettes = [
   },
   ];
   
-zokou({ nomCom: "devinette", categorie: "fun" }, async (dest, zk, commandeOptions) => {
+zokou({ nomCom: "devinette", categorie: "Fun" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre } = commandeOptions;
 
   // Choisir une devinette aléatoire
