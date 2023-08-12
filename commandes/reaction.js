@@ -81,7 +81,7 @@ generateReactionCommand("hug", "😊", "calin","fait un calin");
 generateReactionCommand("awoo", "🐺", "awoo","awoo");
 generateReactionCommand("kiss", "😘", "embrasser","embrassé(e)");
 generateReactionCommand("lick", "👅", "lecher","leché(e)");
-generateReactionCommand("pat", "👋", "tapoté(e)");
+generateReactionCommand("pat", "👋", "tapoter","tapoté(e)");
 generateReactionCommand("smug", "😏", "malice","fait un sourire malicieux a");
 generateReactionCommand("bonk", "🔨", "bonk","bonk");
 generateReactionCommand("yeet", "🚀", "lancer","jetté(e)");
