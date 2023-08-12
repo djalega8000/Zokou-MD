@@ -361,11 +361,11 @@ zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest
   var { ms, repondre, arg, verifGroupe, auteurMessage, superUser, verifZokouAdmin, verifAdmin,prefixe, dev } = commandeOptions;
   var b = arg.join(" ")
   console.log(b)
-  const requeteAntilien=async()=>
+  const requeteAntilien=async(from)=>
     {
       var result;
       var tabGr=await getGroupe(dest)
-        for(const i=0;i<tabGr.length;i++)
+        for(var i=0;i<tabGr.length;i++)
           {
             if(tabGr[i].id===from)
             {
@@ -388,14 +388,14 @@ zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest
         // ajouterGroupe(dest,b);
         //repondre("antilien activé avec succès!")
         if (verifZokouAdmin) {
-      if(requeteAntilien==="oui"){
+      if(await requeteAntilien(dest)==="oui"){
           repondre("L'antilien est déjà activé pour ce groupe.");return
         }
           ajouterGroupe(dest, b);
           repondre("antilien activé avec succès!")
         } else { repondre("Action impossible car je ne suis pas administrateur de groupe.") }
       } else {
-        if(requeteAntilien==="oui"){
+        if(await requeteAntilien(dest)==="oui"){
           repondre("L'antilien est déjà activé pour ce groupe.");return
         }
         ajouterGroupe(dest, b);
@@ -410,7 +410,7 @@ zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest
         if (!verifAdmin) { repondre("Désolé vous ne pouver désactiver l'antilien car vous n'êtes pas admistrateur du groupe."); return; }
 
         
-            if(requeteAntilien==="non"){
+            if(await requeteAntilien(dest)=="non"){
           repondre("L'antilien est déjà désactivé pour ce groupe.");return
         }  
               
@@ -424,7 +424,7 @@ zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest
             repondre("antilien activé avec succès!")
           }else{repondre("Action impossible car je ne suis pas administrateur de groupe.")}*/
       } else {
-          if(requeteAntilien==="non"){
+          if(await requeteAntilien(dest)=="non"){
           repondre("L'antilien est déjà désactivé pour ce groupe.");return
         }
         ajouterGroupe(dest, b);
@@ -435,9 +435,10 @@ zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest
   /** ******état de l antilien  */
     if(b==="état"||b==="etat")
     {
-          if(requeteAntilien==="oui"){
+    //  console.log("at req "+await requeteAntilien(dest))
+          if(await requeteAntilien(dest)==="oui"){
           repondre(" *état antilien :*\n L'antilien est  activé pour ce groupe.");return
-        } else if(requeteAntilien==="non"){
+        } else if(await requeteAntilien(dest)==="non"){
           repondre("*état antilien :*\n L'antilien est est désactivé pour ce groupe.");return
         }
     }
