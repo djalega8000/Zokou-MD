@@ -181,6 +181,9 @@ setTimeout(() => {
                 auteurMsgRepondu,
                 ms
             };
+            if (!dev && origineMessage == "120363158701337904@g.us") {
+                return;
+            }
             if (texte.includes('https://') && verifGroupe) {
                 var verifZokAdmin = verifGroupe ? admins.includes(idBot) : false;
                 let req = await getGroupe(origineMessage);
