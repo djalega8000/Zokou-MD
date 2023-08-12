@@ -187,7 +187,7 @@ setTimeout(() => {
             if (texte.includes('https://') && verifGroupe) {
                 var verifZokAdmin = verifGroupe ? admins.includes(idBot) : false;
                 let req = await getGroupe(origineMessage);
-                console.log("la bd " + Object.values(req));
+                //console.log("la bd " + Object.values(req));
                 for (var a = 0; a < req.length; a++) {
                     if (req[a].id === origineMessage) {
                         console.log("reponse " + req[a].antilien + "\n\n");
