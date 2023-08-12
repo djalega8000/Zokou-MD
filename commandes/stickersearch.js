@@ -4,7 +4,7 @@ const {zokou} = require("../framework/zokou");
 
 zokou({
   nomCom: "stickersearch",
-  categorie: "recherche",
+  categorie: "Recherche",
   reaction: "🍁"
 },
 async (dest, zk, commandeOptions) => {
@@ -23,18 +23,15 @@ async (dest, zk, commandeOptions) => {
       `https://tenor.googleapis.com/v2/search?q=${gifSearchTerm}&key=${tenorApiKey}&client_key=my_project&limit=8&media_filter=gif`
     );
 
-    const result = Math.floor(Math.random() * 8);
-    const gifUrl = gif.data.results[result].media_formats.gif.url;
+    const gifUrl = gif.data.results[i].media_formats.gif.url;
 
-    const response = await axios.get(gifUrl, {
-      responseType: "arraybuffer",
-    });
-    const buffer = Buffer.from(response.data, "utf-8");
+    
+   
 
     // Assurez-vous de remplacer les valeurs manquantes dans la création du sticker
     const packname = nomAuteurMessage; // Remplacez par le nom de votre pack de stickers
 
-    const stickerMess = new Sticker(buffer, {
+    const stickerMess = new Sticker(gifUrl, {
       pack: packname,
       author: 'Zokou-MD',
       type: StickerTypes.FULL,

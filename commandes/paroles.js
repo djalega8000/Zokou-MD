@@ -2,7 +2,7 @@ const {zokou} = require("../framework/zokou")
 
 const lyrics = require("lyric-music");
 
-zokou ({nomCom : "paroles",categorie :"recherche"} , async (dest,zk,commandeOptions) => {
+zokou ({nomCom : "paroles",categorie :"Recherche"} , async (dest,zk,commandeOptions) => {
   const {ms,repondre,arg} = commandeOptions;
 
   const query = arg.join(" ")

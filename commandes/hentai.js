@@ -5,7 +5,7 @@ const axios = require('axios');
 
 zokou({
   nomCom: "hwaifu",
-  categorie: "hentai",
+  categorie: "Hentai",
   reaction: "🙄"
 },
 async (origineMessage, zk, commandeOptions) => {
@@ -27,7 +27,7 @@ async (origineMessage, zk, commandeOptions) => {
   /////////////// hneko //////////
 zokou({
   nomCom: "trap",
-  categorie: "hentai",
+  categorie: "Hentai",
   reaction: "🙄"
 },
 async (origineMessage, zk, commandeOptions) => {
@@ -47,7 +47,7 @@ async (origineMessage, zk, commandeOptions) => {
 
 zokou({
   nomCom: "hneko",
-  categorie: "hentai",
+  categorie: "Hentai",
   reaction: "🙄"
 },
 async (origineMessage, zk, commandeOptions) => {
@@ -68,7 +68,7 @@ async (origineMessage, zk, commandeOptions) => {
 
 zokou({
   nomCom: "blowjob",
-  categorie: "hentai",
+  categorie: "Hentai",
   reaction: "🙄"
 },
 async (origineMessage, zk, commandeOptions) => {
@@ -89,7 +89,7 @@ async (origineMessage, zk, commandeOptions) => {
 
 zokou({
   nomCom: "xvideos",
-  categorie: "Autre",
+  categorie: "Hentai",
   reaction: "🎥"
 },
 async (origineMessage, zk, commandeOptions) => {

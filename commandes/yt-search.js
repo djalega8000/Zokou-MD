@@ -4,7 +4,7 @@ const yts = require("yt-search");
 const ytdl = require('ytdl-core');
 const fs = require('fs');
 
-zokou({ nomCom: "yts", categories: "recherche", reaction: "✋" }, async (zk, OrigineMessage, commandeOptions) => {
+zokou({ nomCom: "yts", categorie: "Recherche", reaction: "✋" }, async ( dest,zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
   const query = arg.join(" ");
   
@@ -20,10 +20,10 @@ zokou({ nomCom: "yts", categories: "recherche", reaction: "✋" }, async (zk, Or
     let captions = "";
     for (let i = 0; i < 10; i++) {
       captions += `----------------\nTitre : ${resultat[i].title}\nDurée : ${resultat[i].timestamp}\nLien : ${resultat[i].url}\n`;
-    } captions += "\n======\n*powered by luffy*";
+    } captions += "\n======\n*powered by Zokou-Md*";
 
-    repondre(captions)
-    /*zk.sendMessage(OrigineMessage, { image: { url: resultat[0].thumbnail }, caption: captions }, { quoted: ms });*/
+    //repondre(captions)
+    zk.sendMessage(dest, { image: { url: resultat[0].thumbnail }, caption: captions }, { quoted: ms });
   } catch (error) {
     repondre("Erreur lors de la procédure : " + error);
   } 
@@ -32,7 +32,7 @@ zokou({ nomCom: "yts", categories: "recherche", reaction: "✋" }, async (zk, Or
 
 zokou({
   nomCom: "ytmp4",
-  categorie: "téléchargement",
+  categorie: "Téléchargement",
   reaction: "🎥"
 }, async (origineMessage, zk, commandeOptions) => {
   const { arg, ms, repondre } = commandeOptions;
@@ -76,7 +76,7 @@ _*En cours de téléchargement...*_\n\n`
 
       fileStream.on('finish', () => {
         // Envoi du fichier vidéo en utilisant l'URL du fichier local
-        zk.sendMessage(origineMessage, { video: { url :"./video.mp4"} , caption: "Powered by *᚛M๏𝓷keℽ D Lบffy᚜*", gifPlayback: false }, { quoted: ms });
+        zk.sendMessage(origineMessage, { video: { url :"./video.mp4"} , caption: "Powered by *Zokou-Md*", gifPlayback: false }, { quoted: ms });
       });
 
       fileStream.on('error', (error) => {
@@ -92,7 +92,7 @@ _*En cours de téléchargement...*_\n\n`
 
 zokou({
   nomCom: "ytmp3",
-  categorie: "téléchargement",
+  categorie: "Téléchargement",
   reaction: "💿"
 }, async (origineMessage, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;

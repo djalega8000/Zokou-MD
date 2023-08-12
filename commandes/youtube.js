@@ -2,10 +2,14 @@ const { zokou } = require("../framework/zokou");
 const yts = require('yt-search');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
+const yt=require("../framework/dl/ytdl-core.js")
+const ffmpeg = require("fluent-ffmpeg");
+const yts1 = require("youtube-yts");
+//var fs =require("fs-extra")
 
 zokou({
   nomCom: "song",
-  categorie: "recherche",
+  categorie: "Recherche",
   reaction: "💿"
 }, async (origineMessage, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
@@ -54,9 +58,20 @@ _*En cours de téléchargement...*_\n\n`
 //
 
 
+// console.log("le son "+urlElement)
 
+/* yt.mp3(urlElement).then((fichier)=>{
+   const entFic=fichier.path;
+   const sortFic=entFic+".opus";
+   ffmpeg.format("opus") .on("error", (err) => {
+              console.error( err);
+            }).on('end',async()=>{
 
-
+                     zk.sendMessage(origineMessage, { audio: { url:fs.readFileSync(sortFic)/*"./audio.mp3"*//*},mimetype:'audio/mp4' }, { quoted: ms,ptt: true }) ;
+            }).save(sortFic)
+ })*/
+     // console.log("le son "+urlElement)*/
+      
        zk.sendMessage(origineMessage,infoMess,{quoted:ms}) ;
       // Obtenir le flux audio de la vidéo
       const audioStream = ytdl(urlElement, { filter: 'audioonly', quality: 'highestaudio' });
@@ -70,8 +85,9 @@ _*En cours de téléchargement...*_\n\n`
 
       fileStream.on('finish', () => {
         // Envoi du fichier audio en utilisant l'URL du fichier local
+      
 
-        zk.sendMessage(origineMessage, { audio: { url:"./audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
+     zk.sendMessage(origineMessage, { audio: { url:"audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
         console.log("Envoi du fichier audio terminé !");
       });
 
@@ -84,6 +100,7 @@ _*En cours de téléchargement...*_\n\n`
     }
   } catch (error) {
     console.error('Erreur lors de la recherche ou du téléchargement de la vidéo :', error);
+    
     repondre('Une erreur est survenue lors de la recherche ou du téléchargement de la vidéo.');
   }
 });
@@ -92,7 +109,7 @@ _*En cours de téléchargement...*_\n\n`
 
 zokou({
   nomCom: "video",
-  categorie: "recherche",
+  categorie: "Recherche",
   reaction: "🎥"
 }, async (origineMessage, zk, commandeOptions) => {
   const { arg, ms, repondre } = commandeOptions;
@@ -123,7 +140,7 @@ _*En cours de téléchargement...*_\n\n`
       // Obtenir les informations de la vidéo à partir du lien YouTube
       const videoInfo = await ytdl.getInfo(Element.url);
       // Format vidéo avec la meilleure qualité disponible
-      const format = ytdl.chooseFormat(videoInfo.formats, { quality: '18' });
+      const format = ytdl.chooseFormat(videoInfo.formats, { quality: '135' });
       // Télécharger la vidéo
       const videoStream = ytdl.downloadFromInfo(videoInfo, { format });
 
@@ -152,4 +169,37 @@ _*En cours de téléchargement...*_\n\n`
   }
 });
 
+
+
+zokou({nomCom:"son",categorie:"Recherche"},async(dest,zk,commandeOptions)=>{
+  let {ms,prefixe,arg,repondre}=commandeOptions;
+
+   try{
+     
+        if(!arg||arg=="")
+     {
+       repondre(prefixe+"son mon gbonhi");return;
+     }
+     const topo = arg.join(" ");
+ console.log(topo)
+     var rch = yts1(topo);
+     var resul = rch.videso[0];
+     var sonUrl =result.url;
+     yt.mp3(sonUrl).then((fichier)=>{
+   const entFic=fichier.path;
+   const sortFic=entFic+".opus";
+   ffmpeg(entFic).format("opus") .on("error", (err) => {
+              console.error( err);
+            }).on('end',async()=>{
+
+                     zk.sendMessage(origineMessage, { audio: { url:fs.readFileSync(sortFic)/*"./audio.mp3"*/},mimetype:'audio/mp4' }, { quoted: ms,ptt: true }) ;
+            }).save(sortFic)
+ })
+   //  console.log(mus.path);
+  /* await  zk.sendMessage(dest,{ audio: fs.readFileSync(mus.path),
+                  mimetype: "audio/mpeg",
+                  ptt: true,},{quoted:ms})*/
+   }catch(e){}
+     
+})
 
