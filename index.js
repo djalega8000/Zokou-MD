@@ -184,64 +184,71 @@ setTimeout(() => {
             if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
             }
-            if (texte.includes('https://') && verifGroupe) {
-                var verifZokAdmin = verifGroupe ? admins.includes(idBot) : false;
-                let req = await getGroupe(origineMessage);
-                //console.log("la bd " + Object.values(req));
-                for (var a = 0; a < req.length; a++) {
-                    if (req[a].id === origineMessage) {
-                        console.log("reponse " + req[a].antilien + "\n\n");
-                        if (req[a].antilien == "oui") {
-                            console.log('  lien détecté'); /*repondre("\tlien détecté");*/
-                            console.log("le dev " + dev);
-                            console.log("zok admin " + verifZokouAdmin);
-                            if (!dev || !superUser) {
-                                if (verifZokouAdmin) {
-                                    if (!verifAdmin) {
-                                        const key = {
-                                            remoteJid: origineMessage,
-                                            fromMe: false,
-                                            id: ms.key.id,
-                                            participant: auteurMessage
-                                        };
-                                        var txt = "lien détecté, \n";
-                                        txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
-                                        const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/remover.gif";
-                                        var sticker = new Sticker(gifLink, {
-                                            pack: 'Zoou-Md',
-                                            author: conf.NOM_OWNER,
-                                            type: StickerTypes.FULL,
-                                            categories: ['🤩', '🎉'],
-                                            id: '12345',
-                                            quality: 50,
-                                            background: '#000000'
-                                        });
-                                        await sticker.toFile("st1.webp");
-                                        // var txt = `@${auteurMsgRepondu.split("@")[0]} a été rétiré du groupe..\n`
-                                        await zk.sendMessage(origineMessage, { sticker: fs.readFileSync("st1.webp") }, { quoted: ms });
-                                        (0, baileys_1.delay)(800);
-                                        await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
-                                        try {
-                                            await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
+            ///////////////////////////////
+            try {
+                if (texte.includes('https://') && verifGroupe) {
+                    var verifZokAdmin = verifGroupe ? admins.includes(idBot) : false;
+                    let req = await getGroupe(origineMessage);
+                    // console.log("la bd " + Object.values(req))
+                    for (var a = 0; a < req.length; a++) {
+                        if (req[a].id === origineMessage) {
+                            console.log("reponse " + req[a].antilien + "\n\n");
+                            if (req[a].antilien == "oui") {
+                                console.log('  lien détecté'); /*repondre("\tlien détecté");*/
+                                console.log("le dev " + dev);
+                                console.log("zok admin " + verifZokouAdmin);
+                                if (!dev || !superUser) {
+                                    if (verifZokouAdmin) {
+                                        if (!verifAdmin) {
+                                            const key = {
+                                                remoteJid: origineMessage,
+                                                fromMe: false,
+                                                id: ms.key.id,
+                                                participant: auteurMessage
+                                            };
+                                            var txt = "lien détecté, \n";
+                                            txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
+                                            const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/remover.gif";
+                                            var sticker = new Sticker(gifLink, {
+                                                pack: 'Zoou-Md',
+                                                author: conf.NOM_OWNER,
+                                                type: StickerTypes.FULL,
+                                                categories: ['🤩', '🎉'],
+                                                id: '12345',
+                                                quality: 50,
+                                                background: '#000000'
+                                            });
+                                            await sticker.toFile("st1.webp");
+                                            // var txt = `@${auteurMsgRepondu.split("@")[0]} a été rétiré du groupe..\n`
+                                            await zk.sendMessage(origineMessage, { sticker: fs.readFileSync("st1.webp") }, { quoted: ms });
+                                            (0, baileys_1.delay)(800);
+                                            await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
+                                            try {
+                                                await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
+                                            }
+                                            catch (e) {
+                                                console.log("antiien ") + e;
+                                            }
+                                            await zk.sendMessage(origineMessage, { delete: key });
+                                            await fs.unlink("st1.webp");
                                         }
-                                        catch (e) {
-                                            console.log("antiien ") + e;
+                                        else {
+                                            repondre("Lien envoyé par un administrateur du groupe impossible de le retirer.");
                                         }
-                                        await zk.sendMessage(origineMessage, { delete: key });
-                                        await fs.unlink("st1.webp");
                                     }
                                     else {
-                                        repondre("Lien envoyé par un administrateur du groupe impossible de le retirer.");
+                                        repondre("Désolé je suis pas administrateur du groupe .");
                                     }
-                                }
-                                else {
-                                    repondre("Désolé je suis pas administrateur du groupe .");
                                 }
                             }
                         }
                     }
                 }
             }
+            catch (e) {
+                console.log("bdd err " + e);
+            }
+            /////////////////////////
             if (conf.MODE != 'oui' && !superUser) {
                 return;
             }
@@ -353,3 +360,4 @@ setTimeout(() => {
     }
     main();
 }, 5000);
+
