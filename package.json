@@ -44,7 +44,7 @@
     "lyric-music": "^1.0.0",
     "moment-timezone": "^0.5.43",
     "mumaker": "^2.0.0",
-    "node-fetch": "^3.2.6",
+    "node-fetch": "^2.6.9",
     "node-id3": "^0.2.6",
     "pg": "^8.11.2",
     "pino": "^8.15.0",
