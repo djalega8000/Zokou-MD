@@ -17,14 +17,14 @@ const sleep =  (ms) =>{
 // Fonction pour la conversion de GIF en vidéo et récupération du buffer vidéo
 const GIFBufferToVideoBuffer = async (image) => {
     const filename = `${Math.random().toString(36)}`;
-    await fs.writeFileSync(`./${filename}.gif`, image);
+    await fs.writeFileSync(`./gif/${filename}.gif`, image);
     child_process.exec(
-        `ffmpeg -i ./${filename}.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ./${filename}.mp4`
+        `ffmpeg -i ./gif/${filename}.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ./gif/${filename}.mp4`
     );
     await sleep(4000);
   
     var buffer5 = await fs.readFileSync(`./gif/${filename}.mp4`);
-    Promise.all([unlink(`./${filename}.mp4`), unlink(`./${filename}.gif`)]);
+    Promise.all([unlink(`./gif/${filename}.mp4`), unlink(`./gif/${filename}.gif`)]);
     return buffer5;
 };
 
@@ -81,7 +81,7 @@ generateReactionCommand("hug", "😊", "calin","fait un calin");
 generateReactionCommand("awoo", "🐺", "awoo","awoo");
 generateReactionCommand("kiss", "😘", "embrasser","embrassé(e)");
 generateReactionCommand("lick", "👅", "lecher","leché(e)");
-generateReactionCommand("pat", "👋", "tapoter","tapoté(e)");
+generateReactionCommand("pat", "👋","tapoter", "tapoté(e)");
 generateReactionCommand("smug", "😏", "malice","fait un sourire malicieux a");
 generateReactionCommand("bonk", "🔨", "bonk","bonk");
 generateReactionCommand("yeet", "🚀", "lancer","jetté(e)");
