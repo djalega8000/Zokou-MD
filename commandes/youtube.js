@@ -140,7 +140,7 @@ _*En cours de téléchargement...*_\n\n`
       // Obtenir les informations de la vidéo à partir du lien YouTube
       const videoInfo = await ytdl.getInfo(Element.url);
       // Format vidéo avec la meilleure qualité disponible
-      const format = ytdl.chooseFormat(videoInfo.formats, { quality: '135' });
+      const format = ytdl.chooseFormat(videoInfo.formats, { quality: '18' });
       // Télécharger la vidéo
       const videoStream = ytdl.downloadFromInfo(videoInfo, { format });
 
