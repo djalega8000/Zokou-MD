@@ -14,7 +14,7 @@ zokou({ nomCom: "menu", categorie: "Général" }, async (dest, zk, commandeOptio
     if (s.MODE_PUBLIC != "oui") {
         mode = "privé";
     }
-    var emoji = { "Général": "🌐", "Logo": "🎨", "hentai": "🔥", "weeb": "🌸", "recherche": "🔍", "conversion": "🌟", "groupe": "♻️" };
+    var emoji = { "Général": "🌐", "Logo": "🎨", "hentai": "🔥", "weeb": "🌸", "recherche": "🔍", "conversion": "🌟", "groupe": "♻️","Téléchargement":"💾" };
     cm.map(async (com, index) => { if (!coms[com.categorie])
         coms[com.categorie] = []; coms[com.categorie].push(com.nomCom); });
     const temps = moment(moment()).format("HH:MM:SS");
