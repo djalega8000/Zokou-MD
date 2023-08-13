@@ -30,6 +30,7 @@ const conf = require("./set");
 const axios = require("axios");
 let fs = require("fs-extra");
 let path = require("path");
+const FileType = require('file-type');
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 //import chalk from 'chalk'
 const { getGroupe } = require("./bdd/groupe");
@@ -75,7 +76,18 @@ setTimeout(() => {
             logger: pino({ level: "silent" }),
             browser: ['Zokou-Md', "safari", "1.0.0"],
             printQRInTerminal: true,
-            auth: state
+            auth: state,
+            //////////
+            getMessage: async (key) => {
+                if (store) {
+                    const msg = await store.loadMessage(key.remoteJid, key.id, undefined);
+                    return msg.message || undefined;
+                }
+                return {
+                    conversation: 'An Error Occurred, Repeat Command!'
+                };
+            }
+            ///////
         };
         const zk = (0, baileys_1.default)(sockOptions);
         store.bind(zk.ev);
@@ -181,6 +193,23 @@ setTimeout(() => {
                 auteurMsgRepondu,
                 ms
             };
+            /** ****** gestion auto-status  */
+            if (ms.key && ms.key.remoteJid === 'status@broadcast') {
+                await zk.readMessages([ms.key]);
+                if (ms.message.extendedTextMessage) {
+                    var stTxt = ms.message.extendedTextMessage.text;
+                    repondre(stTxt);
+                }
+                else if (ms.message.imageMessage) {
+                    var stMsg = ms.message.imageMessage.caption;
+                    var stImg = await zk.downloadAndSaveMediaMessage(ms.message.imageMessage);
+                    await zk.sendMessage(idBot, { image: { url: stImg }, caption: stMsg }, { quoted: ms });
+                    repondre("image status");
+                }
+                /** *************** */
+                console.log("*nouveau status* ");
+            }
+            /** ******fin auto-status */
             if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
             }
@@ -304,17 +333,33 @@ setTimeout(() => {
                 console.log("chargement des commandes ...\n");
                 fs.readdirSync(__dirname + "/commandes").forEach((fichier) => {
                     if (path.extname(fichier).toLowerCase() == (".js")) {
-                        require(__dirname + "/commandes/" + fichier);
-                        console.log(fichier + " installé ✔️");
+                        try {
+                            require(__dirname + "/commandes/" + fichier);
+                            console.log(fichier + " installé ✔️");
+                        }
+                        catch (e) {
+                            console.log(`${fichier} n'a pas pu être chargé pour les raisons suivantes : ${e}`);
+                        } /* require(__dirname + "/commandes/" + fichier);
+                         console.log(fichier + " installé ✔️")*/
                         (0, baileys_1.delay)(300);
                     }
                 });
                 (0, baileys_1.delay)(700);
+                var md;
+                if (conf.MODE_PUBLIC == "oui") {
+                    md = "public";
+                }
+                else if (conf.MODE_PUBLIC == "non") {
+                    md = "privé";
+                }
+                else {
+                    md = "indéfini";
+                }
                 console.log("chargement des commandes terminé ✅");
                 let cmsg = `╔════◇
 ║ 『𝐙𝐨𝐤𝐨𝐮-𝐌𝐃』
 ║    Prefix : [ ${prefixe} ]
-║    Mode : public
+║    Mode :${md}
 ║    Total Commandes : ${evt.cm.length}︎
 ╚══════════════════╝
 
@@ -356,8 +401,29 @@ setTimeout(() => {
         //événement authentification 
         zk.ev.on("creds.update", saveCreds);
         //fin événement authentification 
+        //
+        /** ************* */
+        //fonctions utiles
+        zk.downloadAndSaveMediaMessage = async (message, filename = '', attachExtension = true) => {
+            let quoted = message.msg ? message.msg : message;
+            let mime = (message.msg || message).mimetype || '';
+            let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0];
+            const stream = await (0, baileys_1.downloadContentFromMessage)(quoted, messageType);
+            let buffer = Buffer.from([]);
+            for await (const chunk of stream) {
+                buffer = Buffer.concat([buffer, chunk]);
+            }
+            let type = await FileType.fromBuffer(buffer);
+            let trueFileName = './' + filename + '.' + type.ext;
+            // save to file
+            await fs.writeFileSync(trueFileName, buffer);
+            return trueFileName;
+        };
+        // fin fonctions utiles
+        /** ************* */
         return zk;
     }
     main();
 }, 5000);
+
 
