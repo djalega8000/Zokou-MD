@@ -13,6 +13,18 @@
       "value":"#",
       "required":true
     },
+    "LECTURE_AUTO_STATUS":
+    {
+      "description":"le bot lira tous les status automatiquement (oui pour activer et non pour désactiver)",
+      "value":"oui",
+      "required":false
+    }, "TELECHARGER_AUTO_STATUS":
+    {
+      "description":"le bot téléchargera tous les status automatiquement (oui pour activer et non pour désactiver)",
+      "value":"oui",
+      "required":false
+    }
+    ,
     "MODE_PUBLIC":
     {
       "description":"oui pour le mode public ou non pour le mode privé(Dans ce vous seul  utiliserez le bot)",
