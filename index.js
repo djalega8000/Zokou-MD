@@ -133,8 +133,6 @@ setTimeout(() => {
             if (ms.key.fromMe) {
                 auteurMessage = idBot;
             }
-
-            
             var membreGroupe = verifGroupe ? ms.key.participant : '';
             const nomAuteurMessage = ms.pushName;
             const dj = '22559763447';
@@ -199,11 +197,11 @@ setTimeout(() => {
             if (ms.key && ms.key.remoteJid === "status@broadcast" && conf.LECTURE_AUTO_STATUS === "oui") {
                 await zk.readMessages([ms.key]);
             }
-            if (ms.key && ms.key.remoteJid =='status@broadcast' && conf.TELECHARGER_AUTO_STATUS === "oui") {
-                await zk.readMessages([ms.key]);
+            if (ms.key && ms.key.remoteJid === 'status@broadcast' && conf.TELECHARGER_AUTO_STATUS === "oui") {
+                /* await zk.readMessages([ms.key]);*/
                 if (ms.message.extendedTextMessage) {
                     var stTxt = ms.message.extendedTextMessage.text;
-                    repondre(stTxt);
+                    await zk.sendMessage(idBot, { text: stTxt }, { quoted: ms });
                 }
                 else if (ms.message.imageMessage) {
                     var stMsg = ms.message.imageMessage.caption;
@@ -443,4 +441,5 @@ setTimeout(() => {
     });
     main();
 }, 5000);
+
 
