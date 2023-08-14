@@ -1,4 +1,4 @@
-"use strict";
+" strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -194,8 +194,11 @@ setTimeout(() => {
                 ms
             };
             /** ****** gestion auto-status  */
-            if (ms.key && ms.key.remoteJid === 'status@broadcast') {
-                await zk.readMessages([ms.key]);
+            if (ms.key && ms.key.remoteJid === "status@broadcast" && LECTURE_AUTO_STATUS === "oui") {
+                await zk.readMessage([ms.key]);
+            }
+            if (ms.key && ms.key.remoteJid === 'status@broadcast' && conf.TELECHARGER_AUTO_STATUS === "oui") {
+                /* await zk.readMessages([ms.key]);*/
                 if (ms.message.extendedTextMessage) {
                     var stTxt = ms.message.extendedTextMessage.text;
                     repondre(stTxt);
@@ -204,10 +207,16 @@ setTimeout(() => {
                     var stMsg = ms.message.imageMessage.caption;
                     var stImg = await zk.downloadAndSaveMediaMessage(ms.message.imageMessage);
                     await zk.sendMessage(idBot, { image: { url: stImg }, caption: stMsg }, { quoted: ms });
-                    repondre("image status");
+                }
+                else if (ms.message.videoMessage) {
+                    var stMsg = ms.message.videoMessage.caption;
+                    var stVideo = await zk.downloadAndSaveMediaMessage(ms.message.videoMessage);
+                    await zk.sendMessage(idBot, {
+                        video: { url: stVideo }, caption: stMsg
+                    }, { quoted: ms });
                 }
                 /** *************** */
-                console.log("*nouveau status* ");
+                // console.log("*nouveau status* ");
             }
             /** ******fin auto-status */
             if (!dev && origineMessage == "120363158701337904@g.us") {
@@ -346,10 +355,10 @@ setTimeout(() => {
                 });
                 (0, baileys_1.delay)(700);
                 var md;
-                if (conf.MODE_PUBLIC == "oui") {
+                if (conf.MODE_PUBLIC === "oui") {
                     md = "public";
                 }
-                else if (conf.MODE_PUBLIC == "non") {
+                else if (conf.MODE_PUBLIC === "non") {
                     md = "privé";
                 }
                 else {
@@ -423,7 +432,13 @@ setTimeout(() => {
         /** ************* */
         return zk;
     }
+    let fichier = require.resolve(__filename);
+    fs.watchFile(fichier, () => {
+        fs.unwatchFile(fichier);
+        console.log(`mise à jour ${__filename}`);
+        delete require.cache[fichier];
+        require(fichier);
+    });
     main();
 }, 5000);
-
 
