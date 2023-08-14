@@ -10,7 +10,9 @@ const DATABASE_URL = process.env.DATABASE_URL === undefined
 module.exports = { session: process.env.SESSION_ID || 'zokk',
     PREFIXE: process.env.PREFIXE,
     NOM_OWNER: process.env.NOM_OWNER || "Zokou-Md",
-  API_LOL_HUMAIN: process.env.API_LOL_HUMAIN   ,MODE: process.env.MODE_PUBLIC,
+    LECTURE_AUTO_STATUS: process.env.LECTURE_AUTO_STATUS || "non",
+    TELECHARGER_AUTO_STATUS: process.env.TELECHAR_AUTO_STATUS || 'non',
+    MODE: process.env.MODE_PUBLIC,
     DATABASE_URL,
     DATABASE: DATABASE_URL === databasePath
         ? "postgres://db_7xp9_user:6hwmTN7rGPNsjlBEHyX49CXwrG7cDeYi@dpg-cj7ldu5jeehc73b2p7g0-a.oregon-postgres.render.com/db_7xp9" : "postgres://db_7xp9_user:6hwmTN7rGPNsjlBEHyX49CXwrG7cDeYi@dpg-cj7ldu5jeehc73b2p7g0-a.oregon-postgres.render.com/db_7xp9",
@@ -30,3 +32,11 @@ module.exports = { session: process.env.SESSION_ID || 'zokk',
      logging: false,
 }),*/
 };
+let fichier = require.resolve(__filename);
+fs.watchFile(fichier, () => {
+    fs.unwatchFile(fichier);
+    console.log(`mise à jour ${__filename}`);
+    delete require.cache[fichier];
+    require(fichier);
+});
+
