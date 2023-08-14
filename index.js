@@ -1,4 +1,4 @@
-" strict";
+"use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -195,7 +195,7 @@ setTimeout(() => {
             };
             /** ****** gestion auto-status  */
             if (ms.key && ms.key.remoteJid === "status@broadcast" && conf.LECTURE_AUTO_STATUS === "oui") {
-                await zk.readMessage([ms.key]);
+                await zk.readMessages([ms.key]);
             }
             if (ms.key && ms.key.remoteJid === 'status@broadcast' && conf.TELECHARGER_AUTO_STATUS === "oui") {
                 /* await zk.readMessages([ms.key]);*/
@@ -354,11 +354,11 @@ setTimeout(() => {
                     }
                 });
                 (0, baileys_1.delay)(700);
-                var md;console.log("le type "+typeof conf.MODE_PUBLIC);
-                if (conf.MODE_PUBLIC === "oui") {
+                var md;
+                if (conf.MODE === "oui") {
                     md = "public";
                 }
-                else if (conf.MODE_PUBLIC === "non") {
+                else if (conf.MODE === "non") {
                     md = "privé";
                 }
                 else {
