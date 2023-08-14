@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const baileys_1 = __importStar(require("@whiskeysockets/baileys"));
+const baileys_1 = __importStar(require("@sampandey001/baileys"));
 const pino = require("pino");
 const boom_1 = require("@hapi/boom");
 const conf = require("./set");
